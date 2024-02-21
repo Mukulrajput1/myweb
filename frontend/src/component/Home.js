@@ -80,18 +80,6 @@ function Home() {
               <span className="text-xl z-50 mt-2 font-bold text-white border-2 border-[#f13554] p-5 bg-[#f13554] rounded-xl cursor-pointer hover:bg-white hover:text-[#f13554] transition-[500ms]">
                 E-Commerce Website
               </span>
-              
-              // <div>
-              //   <ul className="flex justify-center space-x-20 mt-11">
-              //     <li className="py-2 px-3 text-gray-800 font-bold hover:bg-gray-500 cursor-pointer">Home</li>
-              //     <li className="py-2 px-3 text-gray-800 font-bold hover:bg-gray-500 cursor-pointer">Cart</li>
-              //     <li className="py-2 px-3 text-gray-800 font-bold hover:bg-gray-500 cursor-pointer">Payment Gateway</li>
-              //     <li className="py-2 px-3 text-gray-800 font-bold hover:bg-gray-500 cursor-pointer">Product</li>
-              //     {/* <li>Orders</li>
-              //     <li>Payment Gateway</li>
-              //     <li>Cart</li> */}
-              //   </ul>
-              // </div>
             <div className="my-5 overflow-hidden flex justify-center ">
               <img src={img1} className="w-[50%] rounded-lg"></img>
             </div>
