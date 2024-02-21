@@ -1,0 +1,242 @@
+#text-review{
+    padding-left: 13px;
+}
+
+.star-rating {
+  font-size: 24px;
+   /* color: #ccc;  Default star color */
+   color: #ccc;
+  
+  .star {
+    display: inline-block;
+    cursor: pointer;
+  
+    &.filled {
+       /* color: gold;  Change the color of filled stars to gold */
+       color: #04c8c8;
+      }
+  
+      &:hover {
+       /* color: gold; Change the color of stars on hover */
+       color: #04c8c8;
+      }
+    }
+}
+.stars-rating {
+  font-size: 24px;
+   /* color: #ccc;  Default star color */
+   color: #ccc;
+  
+  .stars {
+    display: inline-block;
+    cursor: pointer;
+  
+    &.filleds {
+       /* color: gold;  Change the color of filled stars to gold */
+       color: #FFD700;
+      }
+  
+    }
+}
+  
+  .star-rating .star.clicked ~ .star {
+   /* color: gold;  Change the color of clicked stars and all stars to the left */
+   color: #04c8c8;
+  }
+  .stars-rating .stars.clicked ~ .stars {
+    /* color: gold;  Change the color of clicked stars and all stars to the left */
+    color: #04c8c8;
+   }
+.star-rating-before{
+  font-size: 24px;
+  color: #e70b0b;  
+}
+#text-btn{
+  position: absolute;
+  top: 15px;
+}
+
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+.bar-5 {height: 18px; background-color: #57e32c;}
+.bar-4 {height: 18px; background-color: #b7dd29;}
+.bar-3 {height: 18px; background-color: #ffe234;}
+.bar-2 {height: 18px; background-color: #ffa534;}
+.bar-1 {height: 18px; background-color: #ff4545;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}
+#savepallatte{
+  position: absolute;
+  top: 15px;
+}
+.sun {
+  font-size: 1.2rem; /* Adjust the size as needed */
+  color: #cccccc; /* Default star color */
+
+  &.sunfilled {
+    color: #ffbf00; /* Filled star color (e.g., yellow) */
+  }
+
+  &.sunhalf-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 50%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunone-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 26%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.suntwo-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 32%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunthree-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 38%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunfour-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 44%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunsix-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 56%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunseven-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 62%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.suneight-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 68%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+  &.sunnine-sunfilled {
+    position: relative;
+
+    &::before {
+      content: '★';
+      position: absolute;
+      width: 74%;
+      overflow: hidden;
+      color: #ffbf00; /* Half-filled star color */
+    }
+  }
+}
+.sunrating {
+  display: inline-flex;
+  align-items: center;
+}
+.abc{
+  transform: translateY(200px); /* Initial vertical position (above the container) */
+  transition: transform 0.5s ease;
+}
+.fade-in {
+  transform: translateY(0); /* Optional: Reset the translation */
+}
