@@ -8,6 +8,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faAddressBook } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +18,7 @@ import { useContexter } from "../Contexter";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(false);
-  const [isVisible,isSetVisible] = useState(false)
+  const [isVisible, isSetVisible] = useState(false);
 
   // const [click,setClick] = useState(true)
   const { active } = useContexter();
@@ -49,13 +50,13 @@ export default function Navbar() {
       }
       document
         .getElementsByTagName("li")
-        [index].setAttribute("style", click?"color:white;":"color:black;");
+        [index].setAttribute("style", click ? "color:white;" : "color:black;");
       document
         .getElementsByTagName("li")
         [index].getElementsByTagName("span")[0]
         .setAttribute("style", "font-size:16px");
     }
-  }, [active, str,click]);
+  }, [active, str, click]);
 
   const displayMenu = () => {
     if (visible) {
@@ -76,7 +77,11 @@ export default function Navbar() {
           click ? "bg-[#2b3036]" : "bg-blue-200"
         }`}
       >
-        <div className={`ml-8 sm:ml-4 flex flex-col mr-16 lg:mr-14 lg:ml-16 md:mr-8 px-6 pt-5 sm:pt-4 ${click?"bg-[#f13554]":"bg-gray-700"} my-0`}>
+        <div
+          className={`ml-8 sm:ml-4 flex flex-col mr-16 lg:mr-14 lg:ml-16 md:mr-8 px-6 pt-5 sm:pt-4 ${
+            click ? "bg-[#f13554]" : "bg-gray-700"
+          } my-0`}
+        >
           <FontAwesomeIcon
             icon={faM}
             className="text-sm fa-solid fa-m bg-white rounded-full w-5 sm:w-6 py-1 ml-4 sm:ml-5 "
@@ -111,22 +116,29 @@ export default function Navbar() {
             </li>
           </Link>
         </ul>
-        <div className={`hidden mx-5 lg:mx-10 lg:ml-0 md:flex items-center ${click?"text-white":"text-black"} `}>
+        <div
+          className={`hidden mx-5 lg:mx-10 lg:ml-0 md:flex items-center ${
+            click ? "text-white" : "text-black"
+          } `}
+        >
           <input
-            className={`px-2 outline-none ${click?"bg-[#2b3036]":"bg-blue-200 border-black"} border-b rounded-l`}
+            className={`px-2 outline-none ${
+              click ? "bg-[#2b3036]" : "bg-blue-200 border-black"
+            } border-b rounded-l`}
             type="text"
             placeholder="Search"
           />
-          <button className={`${click?"bg-[#2b3036]":"bg-blue-200"} h-4 `}>
+          <button className={`${click ? "bg-[#2b3036]" : "bg-blue-200"} h-4 `}>
             {" "}
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
-              className={`fa-solid fa-magnifying-glass ${click?'':'border-black'} border-b pb-1 pr-2 rounded-r`}
+              className={`fa-solid fa-magnifying-glass ${
+                click ? "" : "border-black"
+              } border-b pb-1 pr-2 rounded-r`}
             ></FontAwesomeIcon>{" "}
           </button>
         </div>
         <div className="flex w-1/2 items-center relative ml-10 md:ml-0">
-
           <div className=" lg:ml-[8%]">
             <div
               className={`w-10 h-4 rounded-full relative flex cursor-pointer transition-all duration-300 ease-in-out items-center ${
@@ -155,11 +167,24 @@ export default function Navbar() {
           </div>
         </div>
         <div className={`hidden sm:flex w-1/2 items-center relative`}>
-          <div className={`w-12 h-12 lg:w-16 lg:h-16 right-5 lg:right-10 rounded-full absolute `}>
-            <img src={profile.image} alt="" className={`object-contain rounded-full`} onClick={function(){isSetVisible(!isVisible)}}/>
+          <div
+            className={`w-12 h-12 lg:w-16 lg:h-16 right-5 lg:right-10 rounded-full absolute `}
+          >
+            <img
+              src={profile.image}
+              alt=""
+              className={`object-contain rounded-full`}
+              onClick={function () {
+                isSetVisible(!isVisible);
+              }}
+            />
           </div>
         </div>
-        <div className={`sm:hidden flex w-3/4 items-center relative ${click?"text-white":"text-black"}`}>
+        <div
+          className={`sm:hidden flex w-3/4 items-center relative ${
+            click ? "text-white" : "text-black"
+          }`}
+        >
           <div className=" absolute right-10" onClick={displayMenu}>
             <FontAwesomeIcon
               icon={faBars}
@@ -170,9 +195,25 @@ export default function Navbar() {
       </div>
       <div
         id="menubar"
-        className={`${click?"bg-[#2b3036]":"bg-blue-200"} h-[100vh] w-40 transition-all absolute ml-[-160px]`}
+        className={`${
+          click ? "bg-[#2b3036]" : "bg-blue-200"
+        } h-[100vh] w-40 transition-all absolute ml-[-160px]`}
       >
-        <ul className={`${click?"text-white":"text-black"} text-center `}>
+        <ul className={`${click ? "text-white" : "text-black"} text-center `}>
+          <li className="flex justify-center mt-4">
+            <div className={`sm:flex items-center`}>
+              <div className={`w-16 h-16 right-5 lg:right-10 rounded-full`}>
+                <img
+                  src={profile.image}
+                  alt=""
+                  className={`object-contain rounded-full`}
+                  onClick={function () {
+                    isSetVisible(!isVisible);
+                  }}
+                />
+              </div>
+            </div>
+          </li>
           <Link to="/">
             <li className="py-5 hover:font-bold cursor-pointer">
               <FontAwesomeIcon icon={faHome}></FontAwesomeIcon> Home
@@ -188,17 +229,39 @@ export default function Navbar() {
               <FontAwesomeIcon icon={faAddressBook}></FontAwesomeIcon> Contact
             </li>
           </Link>
+          <Link to="/blog">
+            <li className="py-5 hover:font-bold cursor-pointer">
+              <FontAwesomeIcon icon={faPenToSquare}></FontAwesomeIcon> Blogs
+            </li>
+          </Link>
         </ul>
       </div>
-      
-    <div className={` transition-all duration-500 right-0 top-0 ${isVisible?"w-[100vw] h-[100vh] ":"w-0 h-0"} absolute bg-black bg-opacity-50 backdrop-blur-md flex justify-center items-center`}> 
-      <img src={profile.image} alt='' className={` rounded-full h-[300px] w-[300px]`} onClick={function(){isSetVisible(!isVisible)}}/>
-      {isVisible && <div className="absolute top-10 right-20 text-white"><FontAwesomeIcon
-            icon={faXmark} className="h-6 w-6 cursor-pointer" onClick={function() {
-              isSetVisible(false)
-            }}></FontAwesomeIcon></div>}
+
+      <div
+        className={` transition-all duration-500 right-0 top-0 ${
+          isVisible ? "w-[100vw] h-[100vh] " : "w-0 h-0"
+        } absolute bg-black bg-opacity-50 backdrop-blur-md flex justify-center items-center`}
+      >
+        <img
+          src={profile.image}
+          alt=""
+          className={` rounded-full h-[300px] w-[300px]`}
+          onClick={function () {
+            isSetVisible(!isVisible);
+          }}
+        />
+        {isVisible && (
+          <div className="absolute top-10 right-20 text-white">
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="h-6 w-6 cursor-pointer"
+              onClick={function () {
+                isSetVisible(false);
+              }}
+            ></FontAwesomeIcon>
+          </div>
+        )}
       </div>
-      </div>
-    
+    </div>
   );
 }

@@ -77,9 +77,7 @@ function Home() {
         <div className="sm:flex px-5">
             <div className="mt-5 w-[100%] text-center">
               {/* <span className="text-2xl ">PROJECT-01</span><br></br> */}
-              <br></br>
-              <br></br>
-              <span className="text-xl z-50 font-bold text-white border-2 border-[#f13554] p-5 bg-[#f13554] rounded-xl cursor-pointer hover:bg-white hover:text-[#f13554] transition-[500ms]">
+              <span className="text-[1.5vmax] font-bold text-white border-2 border-[#f13554] p-2 md:p-3 lg:p-4 bg-[#f13554] rounded-xl cursor-pointer hover:bg-white hover:text-[#f13554] transition-[500ms]">
                 E-Commerce Website
               </span>
               
