@@ -30,7 +30,7 @@ function Home() {
   }, [setActive]);
 
   return (
-    <div className="mt-20">
+    <div className="mt-16 sm:mt-20">
       <div className={`px-4 sm:px-6 py-7 ${click?"bg-[#181b20] text-white":"bg-white text-black"} flex lg:px-10 lg:py-10`}>
         <div className="sm:w-1/2 lg:w-2/5">
           <div className="text-2xl md:text-3xl lg:text-4xl font-bold ">

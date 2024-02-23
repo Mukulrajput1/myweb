@@ -81,12 +81,12 @@ export default function Navbar() {
   return (
     <div className="fixed w-full top-0 z-50">
       <div
-        className={` h-20 flex w-full ${
+        className={`h-16 sm:h-20 flex w-full ${
           click ? "bg-[#2b3036]" : "bg-blue-200"
         }`}
       >
         <div
-          className={`ml-8 sm:ml-4 flex flex-col mr-16 lg:mr-14 lg:ml-16 md:mr-8 px-6 pt-5 sm:pt-4 ${
+          className={`ml-8 sm:ml-4 flex flex-col mr-16 lg:mr-14 lg:ml-16 md:mr-8 px-6 pt-3 sm:pt-4 ${
             click ? "bg-[#f13554]" : "bg-gray-700"
           } my-0`}
         >

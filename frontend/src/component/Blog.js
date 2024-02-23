@@ -34,7 +34,7 @@ function Blog() {
   // ];
 
   return (
-    <div className={`${click?"bg-[#181b20]":"bg-blue-100"} mt-20 `}>
+    <div className={`${click?"bg-[#181b20]":"bg-blue-100"} mt-16 sm:mt-20 `}>
       <div className={`${click?"text-white":"text-black"} font-bold text-4xl ml-8 pt-10`}>My Blogs</div>
     <div className={`content flex `}>
       {/* {!display&&<Moreblog></Moreblog>} */}

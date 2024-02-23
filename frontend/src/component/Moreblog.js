@@ -21,7 +21,7 @@ function Moreblog() {
   }, []);
 
   return (
-    <div className={`lg:flex pt-2 lg:pt-[auto] ${click?"bg-[#181b20]":"bg-white"} mt-20`}>
+    <div className={`lg:flex pt-2 lg:pt-[auto] ${click?"bg-[#181b20]":"bg-white"} mt-16 sm:mt-20`}>
       <div className="contentLeft lg:w-[70%] m-8 flex">
         {blog.map((data) => {
           return (

@@ -21,7 +21,7 @@ function About() {
   }, [setActive, setData, setImage]);
 
   return (
-    <div className="mt-20">
+    <div className="mt-16 sm:mt-20">
       <div
         className={`${
           click ? "bg-[#181b20] text-white" : "bg-[white] text-black"

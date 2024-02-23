@@ -39,6 +39,9 @@ app.get("/resume", async function (req, res) {
   app.get("/about", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
+  app.get("/hire", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
   app.get("/blog", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });

@@ -14,7 +14,7 @@ function Contact() {
     setActive(2);
   }, [setActive])
   return (
-    <div className="mt-20">
+    <div className="mt-16 sm:mt-20">
       <div className="flex flex-col mt-10 sm:mt-0 h-[90vh] sm:justify-center items-center ">
         <div className={`${click?"bg-pink-100":"bg-blue-100"} mt-5 sm:mt-0 w-[90vw] lg:w-[80vw] h-[70vh] py-[10vh] flex flex-col justify-center items-center space-y-6 rounded-lg shadow-lg`}>
           <div>
