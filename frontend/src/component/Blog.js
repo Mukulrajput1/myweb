@@ -30,7 +30,7 @@ function Blog() {
     <div className={`content flex `}>
       {/* {loader && <Loader></Loader>} */}
       {/* {!display&&<Moreblog></Moreblog>} */}
-       <div className='contentLeft lg:w-[70%] m-8'>
+       <div className='contentLeft lg:w-[70%] ml-4 md:ml-8 my-8'>
         {blog.map((data) => {
           return <Blogbox blog={data} key={data._id}  />;
         })}

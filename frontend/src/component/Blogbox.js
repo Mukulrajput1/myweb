@@ -50,7 +50,7 @@ function Blogbox({ blog}) {
         <div className="desc">
           <h1 className="text-xl font-bold uppercase m-4">{blog.blogtitle}</h1>
           <label className="text-lg m-4">
-            {blog.name}, <span className="text-gray-900">{(blog.createdAt).split("T")[0]}</span>
+            {blog.name}, <span className="text-gray-900 text-sm">{(blog.createdAt).split("T")[0]}</span>
           </label>
           <br />
           <br /> 
@@ -60,7 +60,7 @@ function Blogbox({ blog}) {
           }
         </div>
         <div className="descBottom flex relative items-center">
-          <Link to={`/blog/${blog._id}`} className={`m-4 px-6 py-4 ${click?"bg-gray-700 hover:bg-gray-500" :"bg-[#f13554] text-white hover:text-[#f13554] border-[2px] hover:bg-white rounded-md border-[#f13554] ease-in-out duration-200"} cursor-pointer text-md font-bold `} onClick={showMore}>SHOW MORE</Link>
+          <Link to={`/blog/${blog._id}`} className={`m-4 px-5 py-3 ${click?"bg-gray-700 hover:bg-gray-500" :"bg-[#f13554] text-white hover:text-[#f13554] border-[2px] hover:bg-white rounded-md border-[#f13554] ease-in-out duration-200"} cursor-pointer text-md font-bold `} onClick={showMore}>SHOW MORE</Link>
           <div className="absolute right-[5%]">
             <label className="text-sm font-bold">
               Comments <span className="text-white bg-black px-[9px] py-[2px] font-normal">{count}</span>

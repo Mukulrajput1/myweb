@@ -147,7 +147,7 @@ export default function Navbar() {
             ></FontAwesomeIcon>{" "}
           </button>
         </div>
-        <div className="flex w-1/2 items-center relative ml-10 md:ml-0">
+        <div className="flex w-1/2 items-center relative ml-4 md:ml-0">
           <div className=" lg:ml-[8%]">
             <div
               className={`w-10 h-4 rounded-full relative flex cursor-pointer transition-all duration-300 ease-in-out items-center ${
