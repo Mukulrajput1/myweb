@@ -17,6 +17,7 @@ var cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.resolve(__dirname, "frontend", "build")));
 mainConnect()
 
 app.get("/resume", async function (req, res) {
@@ -25,13 +26,24 @@ app.get("/resume", async function (req, res) {
   res.setHeader(
     "Content-Disposition",
     'attachment; filename="resume.pdf"'
-  );
-  res.setHeader("Content-Type", "application/pdf");
-  res.send(pdfBuffer);
+    );
+    res.setHeader("Content-Type", "application/pdf");
+    res.send(pdfBuffer);
+  });
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
-app.get("/", (req, res) => {
-  app.use(express.static(path.resolve(__dirname, "frontend", "build")));
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  app.get("/contact", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+  app.get("/about", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+  app.get("/blog", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+  app.get("/blog/*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
 
 app.get("/technicalskill",async function(req,res){
