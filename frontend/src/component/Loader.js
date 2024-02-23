@@ -16,8 +16,7 @@ const{click} = useContexter()
 
         .loader {
           border: 6px solid #f3f3f3;
-          border-top:${click?"6px solid #f13554;":"border-top:6px solid blue;"}
-
+          border-top:6px solid #f13554;
           border-radius: 50%;
           width: 40px;
           height: 40px;

@@ -89,17 +89,15 @@ function Home() {
         {loader && <Loader></Loader>}
         {project.map((data) => {
           return (
-            <div className="sm:flex px-5">
+            <div className=" px-5">
               <div className="mt-5 w-[100%] text-center">
                 {/* <span className="text-2xl ">PROJECT-01</span><br></br> */}
                 <span className="text-[1.5vmax] font-bold border-2 capitalize border-[#f13554] p-2 md:p-3 lg:p-4 cursor-pointer bg-white text-[#f13554] transition-[500ms]">
                   {data.project_name}
                 </span>
                
-                {/* <div className="my-5 overflow-hidden flex justify-center ">
-              <img src={img1} className="w-[90%] lg:w-[60%] rounded-lg"></img>
-            </div> */}
-                <div className="my-5">
+                
+                <div className="my-5 flex justify-center">
                   <Imageslider images={data.images} />
                 </div>
               </div>
