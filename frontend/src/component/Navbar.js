@@ -14,11 +14,13 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { useContexter } from "../Contexter";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(false);
   const [isVisible, isSetVisible] = useState(false);
+  const {setProfile} = useContexter()
 
   // const [click,setClick] = useState(true)
   const { active } = useContexter();
@@ -28,6 +30,12 @@ export default function Navbar() {
   const str = "FontAwesomeIcon";
 
   useEffect(() => {
+    const fetchdetails = async () =>{
+      await axios.get(`${window.location.origin}/profile`).then((res)=>{
+        setProfile(res.data)
+      })
+    }
+    fetchdetails()
     document
       .getElementsByTagName("li")
       [active].setAttribute("style", "color:#f13554");

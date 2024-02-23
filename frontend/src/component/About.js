@@ -66,10 +66,10 @@ function About() {
                     Training And Certificates
                   </span>
                 </div>
-                <div className="flex w-full mt-4">
+                <div className="md:flex w-full mt-4">
                   {data.map((res) => {
                     return (
-                      <div className="my-2 w-1/3 space-x-5" key={res._id}>
+                      <div className="my-2 md:w-1/3 space-x-5" key={res._id}>
                         <div className="font-bold italic sm:text-lg mb-3 sm:mb-0 sm:flex justify-center flex-col items-center">
                           <span className="text-[1.5vmax]">{res.name} </span>
                           <span className="text-[1vmax]">

@@ -12,15 +12,11 @@ function Home() {
   const { setActive } = useContexter();
   const [project,setProject] = useState();
   const{profile} = useContexter();
-  const {setProfile} = useContexter()
+  // const {setProfile} = useContexter()
   const { click } = useContexter();
   useEffect(() => {
     setActive(0);
-    const fetchdetails = async () =>{
-      await axios.get(`${window.location.origin}/profile`).then((res)=>{
-        setProfile(res.data)
-      })
-    }
+    
     const fetchProjects = async () => {
       await axios
         // .get("http://127.0.0.1:8000/project")
@@ -30,7 +26,7 @@ function Home() {
         });
     };
     fetchProjects();
-    fetchdetails();
+    // fetchdetails();
   }, [setActive]);
 
   return (
@@ -74,6 +70,7 @@ function Home() {
           <span className="text-2xl px-5 py-2 text-white">Projects</span>
           <div className="bg-white px-10 py-2 rotate-[65deg]"></div>
         </div>
+        <br></br>
         <div className="sm:flex px-5">
             <div className="mt-5 w-[100%] text-center">
               {/* <span className="text-2xl ">PROJECT-01</span><br></br> */}
