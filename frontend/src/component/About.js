@@ -4,21 +4,24 @@ import Resume from "./Resume";
 import { useEffect } from "react";
 import Skill from "./Skill";
 import axios from "axios";
+import Loader from "./Loader";
 import img from "../mern.png";
 
 function About() {
-  const {setVisible} = useContexter()
+  const { setVisible } = useContexter();
   const { click } = useContexter();
   const { setActive } = useContexter();
   const [data, setData] = useState([]);
+  const [loader,setLoader] = useState(true)
   const [image, setImage] = useState([]);
   useEffect(() => {
-    setVisible(false)
+    setVisible(false);
     setActive(1);
     // axios.get("http://127.0.0.1:8000/certificates").then((res) => {
     axios.get(`${window.location.origin}/certificates`).then((res) => {
       console.log(res.data);
       setData(res.data);
+      setLoader(false)
     });
   }, [setActive, setData, setImage]);
 
@@ -67,6 +70,7 @@ function About() {
                   <span className="text-xl sm:text-2xl font-bold uppercase">
                     Training And Certificates
                   </span>
+                  {loader && <Loader></Loader>}
                 </div>
                 <div className="md:flex w-full mt-4">
                   {data.map((res) => {

@@ -4,24 +4,27 @@ import axios from "axios";
 import { useContexter } from "../Contexter";
 import { useParams } from "react-router-dom";
 import Leftcomp1 from "./Leftcomp1";
+import Loader from "./Loader";
 
 function Moreblog() {
   const { id } = useParams();
   const data = { id: id };
   const [blog, setBlog] = useState([]);
   const [count, setCount] = useState();
+  const [loader,setLoader] = useState(true)
   const {click} = useContexter()
   useEffect(() => {
     axios.post(`${window.location.origin}/blogs`, data).then((res) => {
       setBlog(res.data.blog);
       setCount(res.data.comment)
       console.log(res.data);
-      
+      setLoader(false)
     });
   }, []);
 
   return (
     <div className={`lg:flex pt-2 lg:pt-[auto] ${click?"bg-[#181b20]":"bg-white"} mt-16 sm:mt-20`}>
+      {loader && <Loader></Loader>}
       <div className="contentLeft lg:w-[70%] m-8 flex">
         {blog.map((data) => {
           return (

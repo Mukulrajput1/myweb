@@ -92,10 +92,11 @@ app.post("/searchComment",async function(req,res){
 });
 
 app.get("/project",async function(req,res){
-  const a = await projectModel.find()
+  let a = await projectModel.find()
   res.send(a)
-
+  console.log(a)
 });
+
 app.get("/profile",async function(req,res){
   const a = await profileModel.findOne()
   res.send(a)
