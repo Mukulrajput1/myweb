@@ -9,6 +9,7 @@ import axios from "axios";
 import TextAnimation from "./TextAnimation";
 
 function Home() {
+  const {setVisible} = useContexter()
   const { setActive } = useContexter();
   const [project,setProject] = useState();
   const{profile} = useContexter();
@@ -16,6 +17,7 @@ function Home() {
   const { click } = useContexter();
   useEffect(() => {
     setActive(0);
+    setVisible(false)
     
     const fetchProjects = async () => {
       await axios
@@ -80,7 +82,7 @@ function Home() {
               
             
             <div className="my-5 overflow-hidden flex justify-center ">
-              <img src={img1} className="w-[50%] rounded-lg"></img>
+              <img src={img1} className="w-[90%] lg:w-[60%] rounded-lg"></img>
             </div>
             </div>
           {/* <div></div> */}

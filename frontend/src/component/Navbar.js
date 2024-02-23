@@ -18,9 +18,11 @@ import axios from "axios";
 import { useContexter } from "../Contexter";
 
 export default function Navbar() {
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
   const [isVisible, isSetVisible] = useState(false);
   const {setProfile} = useContexter()
+  const {visible} = useContexter()
+  const {setVisible} = useContexter()
 
   // const [click,setClick] = useState(true)
   const { active } = useContexter();
@@ -28,7 +30,6 @@ export default function Navbar() {
   const { profile } = useContexter();
   const { setClick } = useContexter();
   const str = "FontAwesomeIcon";
-
   useEffect(() => {
     const fetchdetails = async () =>{
       await axios.get(`${window.location.origin}/profile`).then((res)=>{
@@ -67,15 +68,15 @@ export default function Navbar() {
   }, [active, str, click]);
 
   const displayMenu = () => {
-    if (visible) {
-      document
-        .getElementById("menubar")
-        .setAttribute("style", "margin-left:-160px;");
-    } else {
-      document
-        .getElementById("menubar")
-        .setAttribute("style", "margin-left:0px;");
-    }
+    // if (visible) {
+    //   document
+    //     .getElementById("menubar")
+    //     .setAttribute("style", "margin-left:-160px;");
+    // } else {
+    //   document
+    //     .getElementById("menubar")
+    //     .setAttribute("style", "margin-left:0px;");
+    // }
     setVisible(!visible);
   };
   return (
@@ -205,7 +206,7 @@ export default function Navbar() {
         id="menubar"
         className={`${
           click ? "bg-[#2b3036]" : "bg-blue-200"
-        } h-[100vh] w-40 transition-all absolute ml-[-160px]`}
+        } h-[100vh] w-40 transition-all absolute ${visible?"ml-[0px]":"ml-[-160px]"}`}
       >
         <ul className={`${click ? "text-white" : "text-black"} text-center `}>
           <li className="flex justify-center mt-4">

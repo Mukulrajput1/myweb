@@ -9,12 +9,13 @@ export function ProvideContext({children}) {
   const [profile,setProfile] = useState([]);
   const [display,setDisplay] = useState(true)
   const[msg,setMsg] = useState(false)
+  const [visible, setVisible] = useState(false);
   const [blog,setBlog] = useState()
   const [mailMsg,setMailMsg] = useState("")
   
   return (
     <div>
-      <contexter.Provider value={{active,setActive,click,setClick,display,setDisplay,blog,setBlog,profile,setProfile,mailMsg,setMailMsg,msg,setMsg}}>
+      <contexter.Provider value={{active,setActive,click,setClick,display,setDisplay,blog,setBlog,profile,setProfile,mailMsg,setMailMsg,msg,setMsg,visible,setVisible}}>
         {children}
       </contexter.Provider>
     </div>

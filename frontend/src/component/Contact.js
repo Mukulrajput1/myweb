@@ -8,9 +8,11 @@ import { faTelegram } from "@fortawesome/free-brands-svg-icons";
 import { useContexter } from "../Contexter";
 
 function Contact() {
+  const {setVisible} = useContexter()
   const {setActive} = useContexter()
   const {click} = useContexter()
   useEffect(() => {
+    setVisible(false)
     setActive(2);
   }, [setActive])
   return (

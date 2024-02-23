@@ -6,8 +6,10 @@ import axios from "axios";
 
 
 function Blog() {
+  const {setVisible} = useContexter()
   const [blog,setBlog] = useState([])
   useEffect(() => {
+    setVisible(false)
     axios.get(`${window.location.origin}/blogs`).then((res)=>{
       setBlog(res.data)
       console.log(res.data)

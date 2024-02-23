@@ -7,11 +7,13 @@ import axios from "axios";
 import img from "../mern.png";
 
 function About() {
+  const {setVisible} = useContexter()
   const { click } = useContexter();
   const { setActive } = useContexter();
   const [data, setData] = useState([]);
   const [image, setImage] = useState([]);
   useEffect(() => {
+    setVisible(false)
     setActive(1);
     // axios.get("http://127.0.0.1:8000/certificates").then((res) => {
     axios.get(`${window.location.origin}/certificates`).then((res) => {
