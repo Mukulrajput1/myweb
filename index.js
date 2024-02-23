@@ -75,7 +75,7 @@ app.post("/blogs",async function(req,res){
     comment:b
   }
   res.send(c)
-  console.log(c)
+  console.log(a)
 });
 app.post("/comments",async function(req,res){
   const a = await commentsModel.insertMany(req.body)

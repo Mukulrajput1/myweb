@@ -54,7 +54,7 @@ function Blogbox({ blog}) {
           </label>
           <br />
           <br /> 
-          <p className="m-4 text-sm capitalize">{blog.blogdesc}</p>
+          <p className="m-4 text-sm capitalize">{blog["blogdesc"][0]}</p>
           {
           visible && <p className="m-4 text-sm capitalize">{str}</p>
           }

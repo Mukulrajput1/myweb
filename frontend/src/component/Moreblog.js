@@ -44,7 +44,10 @@ function Moreblog() {
                 </label>
                 <br />
                 <br />
-                <p className={`m-4 text-sm capitalize ${click?"":"text-gray-800"}`}>{data.blogdesc}</p>
+                {data.blogdesc.map((data)=>{
+
+                return <p className={`m-4 text-sm capitalize ${click?"":"text-gray-800"}`}>{data}</p>
+                })}
               </div>
             </div>
           );
