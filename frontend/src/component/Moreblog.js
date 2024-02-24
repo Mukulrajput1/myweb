@@ -5,6 +5,7 @@ import { useContexter } from "../Contexter";
 import { useParams } from "react-router-dom";
 import Leftcomp1 from "./Leftcomp1";
 import Loader from "./Loader";
+import Headings from "./Headings";
 
 function Moreblog() {
   const { id } = useParams();
@@ -44,9 +45,9 @@ function Moreblog() {
                 </label>
                 <br />
                 <br />
-                {data.blogdesc.map((data)=>{
+                {data.blogdesc.map((data,index)=>{
 
-                return <p className={`m-4 text-sm capitalize ${click?"":"text-gray-800"}`}>{data}</p>
+                return <Headings key={index} {...data}></Headings>
                 })}
               </div>
             </div>
