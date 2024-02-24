@@ -25,8 +25,8 @@ function Moreblog() {
 
   return (
     <div className={`lg:flex pt-2 lg:pt-[auto] ${click?"bg-[#181b20]":"bg-white"} mt-16 sm:mt-20`}>
-      {loader && <Loader></Loader>}
-      <div className="contentLeft lg:w-[70%] m-8 flex">
+      {loader && <div className="lg:w-[70%]"><Loader></Loader></div>}
+      {!loader && <div className="contentLeft lg:w-[70%] m-8 flex">
         {blog.map((data) => {
           return (
             <div className={`titleHeading rounded-lg ${click?"bg-gray-600":"bg-blue-200"} text-white py-2`}>
@@ -53,7 +53,7 @@ function Moreblog() {
             </div>
           );
         })}
-      </div>
+      </div>}
         <div className="contentRight lg:w-[30%] lg:m-8 p-8 lg:p-0">
           <Leftcomp1 id={id} count={count}></Leftcomp1>
         </div>
