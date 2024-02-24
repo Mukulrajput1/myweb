@@ -29,7 +29,6 @@ function Blogbox({ blog}) {
     axios.post(`${window.location.origin}/blogs`, data).then((res) => {
       setBlog(res.data.blog);
       setCount(res.data.comment)
-      console.log(res.data);
       
     });
   }, []);

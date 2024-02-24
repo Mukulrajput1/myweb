@@ -15,7 +15,6 @@ function Blog() {
     setVisible(false)
     axios.get(`${window.location.origin}/blogs`).then((res)=>{
       setBlog(res.data)
-      console.log(res.data)
       setLoader(false)
     })
     
