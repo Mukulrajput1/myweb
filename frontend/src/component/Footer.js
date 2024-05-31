@@ -6,6 +6,7 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { useContexter } from "../Contexter";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast from 'react-hot-toast'
 
 
 function Footer() {
@@ -19,15 +20,18 @@ function Footer() {
     const data = {email:email}
     if(email.length !== 0){
     axios.post(`${window.location.origin}/subscribe`,data).then((res)=>{
-      setMailMsg(res.data)
-      setMsg(true)
-    }).catch(()=>{
       // setMailMsg(res.data)
-      setMsg(true)
+      // setMsg(true)
+      toast.success("Successfully subscribed")
+    }).catch(()=>{
+      toast.error("Already Subscribed")
+      // setMailMsg(res.data)
+      // setMsg(true)
     })}
     else{
-      setMailMsg("Please Enter Your Email")
-      setMsg(true)
+      toast.error("Please Enter Your Email")
+      // setMailMsg("Please Enter Your Email")
+      // setMsg(true)
     }
   
 

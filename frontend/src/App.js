@@ -12,6 +12,7 @@ import Blog from './component/Blog';
 import Moreblog from './component/Moreblog';
 import Blogentry from './component/Blogentry';
 import Warn from './component/Warn';
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
       <Footer></Footer>
     </div>
     </Router>
+    <div className='z-50'><Toaster position="bottom-center"
+              reverseOrder={false} /></div>
     </ProvideContext>
   );
 }

@@ -90,7 +90,7 @@ function Leftcomp1({ id,count }) {
                 <textarea
                   rows={10}
                   type="text"
-                  placeholder="Enter Your Name"
+                  placeholder="Enter Your Comments"
                   className={`border-[2px] rounded-md pl-2 w-[95%] border-gray-400 ${click?"bg-gray-600 text-white":"bg-white"} outline-none`}
                   onChange={(event) => setComment(event.target.value)}
                 ></textarea>

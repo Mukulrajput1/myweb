@@ -117,7 +117,7 @@ app.post("/subscribe",async (req,res)=>{
   console.log(b)
   // console.log(req.body)
   if(b){
-    res.send("Already subscribe")
+    res.status(400).send("Already subscribe")
   }else{
   const a = await subscriberModel.insertMany({email:data.email})
   res.status(200).send("successfully subscribed")
