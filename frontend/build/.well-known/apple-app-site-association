@@ -1,0 +1,11 @@
+{
+    "applinks": {
+      "apps": [],
+      "details": [
+      {
+        "appID": "C248P2BQTL.com.perk.deeplink",
+        "paths": ["*"]
+      }
+      ]
+    }
+}
