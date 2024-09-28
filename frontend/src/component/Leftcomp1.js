@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useContexter } from "../Contexter";
 import axios from "axios";
+import toast from 'react-hot-toast'
 // import img from '../images/avatar_g.jpg'
 
 function Leftcomp1({ id,count }) {
@@ -22,17 +23,26 @@ function Leftcomp1({ id,count }) {
     };
     fetchComments();
   }, [setComments]);
-  const formSubmit = (event) => {
+  const formSubmit =async (event) => {
     event.preventDefault();
     const data = {
       name: name,
       comment: comment,
       blogId: id,
     };
+    if(data.name === '' || data.comment === ''){
+      return false
+    }
+    try {
+      await axios.post(`${window.location.origin}/comments`, data)
+      toast.success("Done");
+      
+      const response = await axios.post(`${window.location.origin}/searchComment`, {id:id})
+      setComments(response.data)
+    } catch (error) {
+      toast.error("Failed");
+    }
 
-    axios.post(`${window.location.origin}/comments`, data).then((res) => {
-      alert("comment done");
-    });
   };
 
   return (
