@@ -230,9 +230,11 @@ function sendMessage(to, messageText) {
         }
       }
     }
-  }).then(response => {
+  })
+  .then(response => {
     console.log("Message sent:", response.data);
-  }).catch(error => {
+  })
+  .catch(error => {
     console.error("Error sending message:", error.response ? error.response.data : error.message);
   });
 }
