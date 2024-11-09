@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BO24oXZAmLQq1CVLQMZAblFLEsS0aCFephPrcHsdf0MTzbgunrcZB1ZAcB8zKcZAzcQj2LAjRyXrsdHFlPgkgchF5hfA0SZAbTbRAVDfPZBVstX5HQf6aFBb7lYiPZBVqGq5yqBOc5ZA8XL9BdzZA6JwfuguXrZArerIkdYUdjG2oPvbDn4luH65ue9PXJV5sVFUcZCzn9rGcQRZA3ztdvMgkpwq3KTs0ZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO2rSkjHM1g7PeadTWJlqZAF28krmJZAMZC903ZAzrReIkEIw4uDKJK0p5e0u2SK3EWpEk0IKqDOzZCwcYtGF7G7FDfpOsFHi31hB7Lc3l4Hc7PPc8GKkCIBwN39plu3rIn7t52ToIFqREXdwzHl6gxABZA0l0kQRjcdQQBiksFZC0RPQous8P1lMCs5PZAqKvopbC2bujXf4Ji5POXT56Qv3ZAaMQ';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -221,10 +221,10 @@ function sendMessage(to, messageText) {
     },
     data: {
       messaging_product: "whatsapp",
-      to: "918445059322",
+      to: to,
       type: "template",
       template: {
-        name: "hello_world",
+        name: messageText,
         language: {
           code: "en_US"
         }
