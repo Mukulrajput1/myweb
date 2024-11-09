@@ -273,7 +273,7 @@ async function sendMessage(to, messageText) {
   const maxRetries = 3;
   let attempt = 0;
 
-  // while (attempt < maxRetries) {
+  while (attempt < maxRetries) {
     try {
       const response = await axios({
         method: "POST",
@@ -282,6 +282,7 @@ async function sendMessage(to, messageText) {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
         },
+        timeout: 60000,
         data: {
           messaging_product: "whatsapp",
           to: to,
@@ -295,16 +296,16 @@ async function sendMessage(to, messageText) {
       return response.data;
       
     } catch (error) {
-      // attempt++;
-      // if (attempt >= maxRetries) {
+      attempt++;
+      if (attempt >= maxRetries) {
         console.error("All retry attempts failed. Error:", error.response ? error.response.data : error.message);
-      //   throw error;
-      // } else {
-      //   console.warn(`Attempt ${attempt} failed. Retrying in ${2 ** attempt * 100}ms...`);
-      //   await new Promise(resolve => setTimeout(resolve, 2 ** attempt * 100)); // Exponential backoff
-      // }
+        throw error;
+      } else {
+        console.warn(`Attempt ${attempt} failed. Retrying in ${2 ** attempt * 100}ms...`);
+        await new Promise(resolve => setTimeout(resolve, 2 ** attempt * 100)); // Exponential backoff
+      }
     }
-  // }
+  }
 }
 
 
