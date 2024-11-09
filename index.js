@@ -6,7 +6,7 @@ require('dotenv').config();
 // const token = process.env.TOKEN;       // Access token for WhatsApp API
 // const myToken = process.env.MYTOKEN;   // Verification token for webhook
 // const phoneNumberId = process.env.PHONE_NUMBER_ID; // WhatsApp phone number ID
-const token = 'EAAUXn7ZAmXu0BO2zEAiRScvh6AyxNb3Pk1lFPL2iYnHZArXmTR33uwSMYPkeNFugGc9UnXVXP2HJLxfaT9Vk1M3KyJHl2Uo6kZBZBVcFma9mRewfYMIagM7uDuRt3ESS4ZCQ1J4BMTZCShKZB2yqrLPbtYk0wLOHLYF6mYq7KWW2LNi1Cvq8vW7PCgcZBl6fp7aVV9olSeSDVyunLYFvRF38iCahIZBpML1XYnJcZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO0KWo26jH9dgNBTPvZAZCgwEOlDQcqnECZAXewBZAt3yAGtp1N4jHXUDg0esWdt8rDhUkUSZCmgFWxjOrHSk5JuhWJuwOKAnTg3MCeKaafZBMrhWk2JcXlkScZC1Wre9dSmVQRsOFtd7LCZC1GvColxLJ6RoZCAeczPWaldE3BsylRgZAv0zunmENLSEGXfSfEQhCqbZA6DMKDSdaLZBqunZCyX6TX0oZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402'; // WhatsApp phone number ID
 
