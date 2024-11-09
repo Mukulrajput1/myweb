@@ -273,7 +273,7 @@ async function sendMessage(to, messageText) {
   const maxRetries = 3;
   let attempt = 0;
 
-  while (attempt < maxRetries) {
+  // while (attempt < maxRetries) {
     try {
       const response = await axios({
         method: "POST",
@@ -282,7 +282,6 @@ async function sendMessage(to, messageText) {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        timeout: 100000, // 10 seconds timeout
         data: {
           messaging_product: "whatsapp",
           to: to,
@@ -305,7 +304,7 @@ async function sendMessage(to, messageText) {
         await new Promise(resolve => setTimeout(resolve, 2 ** attempt * 100)); // Exponential backoff
       }
     }
-  }
+  // }
 }
 
 
