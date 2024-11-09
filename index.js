@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOycaFCrODcGJhIARd2wyZBpLbXg5GK1oGN0xTVqfnIIGuqU36EZB7ajjjI7wRN2w93djNUhKcKIENlqCGa1jF7aS55ZChzRoZA7q41ZAn3eta7zBhmmi93hzZC7as6O0UsHzoZACbLcSHebu3Uxlom8TgreRqZCV2F4sLIaUIxPZB0ZCZBaGdMHim8MjbXaeqsZA6qMvBOfABgdauo2fLmvjS9RYvHsy';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO24oXZAmLQq1CVLQMZAblFLEsS0aCFephPrcHsdf0MTzbgunrcZB1ZAcB8zKcZAzcQj2LAjRyXrsdHFlPgkgchF5hfA0SZAbTbRAVDfPZBVstX5HQf6aFBb7lYiPZBVqGq5yqBOc5ZA8XL9BdzZA6JwfuguXrZArerIkdYUdjG2oPvbDn4luH65ue9PXJV5sVFUcZCzn9rGcQRZA3ztdvMgkpwq3KTs0ZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -210,6 +210,8 @@ app.post("/webhook", (req, res) => {
 
 // Function to send a WhatsApp message
 function sendMessage(to, messageText) {
+
+  console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
   axios({
     method: "POST",
     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
