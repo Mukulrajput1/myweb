@@ -15,6 +15,9 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
+const token = process.env.TOKEN;       // Access token for WhatsApp API
+const myToken = process.env.MYTOKEN;   // Verification token for webhook
+const phoneNumberId = process.env.PHONE_NUMBER_ID;
 
 var cors = require("cors");
 app.use(cors());
@@ -169,7 +172,15 @@ app.get("/webhook", (req, res) => {
       res.status(403).send("Forbidden");
     }
   }
-  res.status(500).send('');
+  const data = {
+    mode: mode,
+    challenge: challenge,
+    verifyToken: verifyToken,
+    token : token,
+    phoneNumberId: phoneNumberId,
+    myToken: myToken
+  }
+  res.status(200).send(data);
 });
 
 // Receiving messages from the webhook
