@@ -240,32 +240,72 @@ app.post("/webhook", (req, res) => {
 //   });
 // }
 
-function sendMessage(to, messageText) {
-  console.log("To:", to, "Message:", messageText);
+// function sendMessage(to, messageText) {
+//   console.log("To:", to, "Message:", messageText);
 
-  axios({
-    method: "POST",
-    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    timeout: 1000000,
-    data: {
-      messaging_product: "whatsapp",
-      to: to,
-      type: "text",
-      text: {
-        body: messageText
+//   axios({
+//     method: "POST",
+//     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+//     headers: {
+//       "Authorization": `Bearer ${token}`,
+//       "Content-Type": "application/json"
+//     },
+//     timeout: 1000000,
+//     data: {
+//       messaging_product: "whatsapp",
+//       to: to,
+//       type: "text",
+//       text: {
+//         body: messageText
+//       }
+//     }
+//   })
+//   .then(response => {
+//     console.log("Message sent:", response.data);
+//   })
+//   .catch(error => {
+//     console.error("Error sending message:", error.response ? error.response.data : error.message);
+//   });
+// }
+async function sendMessage(to, messageText) {
+  console.log("Sending message to:", to, "with template:", messageText);
+  
+  const maxRetries = 3;
+  let attempt = 0;
+
+  while (attempt < maxRetries) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        timeout: 100000, // 10 seconds timeout
+        data: {
+          messaging_product: "whatsapp",
+          to: to,
+          type: "text",
+                text: {
+                  body: messageText
+                }
+        }
+      });
+      console.log("Message sent successfully:", response.data);
+      return response.data;
+      
+    } catch (error) {
+      attempt++;
+      if (attempt >= maxRetries) {
+        console.error("All retry attempts failed. Error:", error.response ? error.response.data : error.message);
+        throw error;
+      } else {
+        console.warn(`Attempt ${attempt} failed. Retrying in ${2 ** attempt * 100}ms...`);
+        await new Promise(resolve => setTimeout(resolve, 2 ** attempt * 100)); // Exponential backoff
       }
     }
-  })
-  .then(response => {
-    console.log("Message sent:", response.data);
-  })
-  .catch(error => {
-    console.error("Error sending message:", error.response ? error.response.data : error.message);
-  });
+  }
 }
 
 
