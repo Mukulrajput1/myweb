@@ -220,7 +220,13 @@ function sendMessage(to, messageText) {
     data: {
       messaging_product: "whatsapp",
       to: to,
-      text: { body: messageText }
+      type: "template",
+      template: {
+        name: messageText,
+        language: {
+          code: "en_US"
+        }
+      }
     }
   }).then(response => {
     console.log("Message sent:", response.data);
