@@ -159,6 +159,12 @@ app.post("/blogpost", async (req,res)=>{
   res.send("ok")
 })
 
+const agent = new https.Agent({
+  keepAlive: true,
+  secureProtocol: 'TLSv1_2_method' // Force TLS 1.2
+});
+
+
 app.get("/webhook", (req, res) => {
   const mode = req.query["hub.mode"];
   const challenge = req.query["hub.challenge"];
@@ -249,6 +255,7 @@ function sendMessage(to, messageText) {
       "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json"
     },
+    httpsAgent: agent,
     data: {
       messaging_product: "whatsapp",
       to: to,
