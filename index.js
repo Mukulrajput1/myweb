@@ -6,7 +6,7 @@ require('dotenv').config();
 // const token = process.env.TOKEN;       // Access token for WhatsApp API
 // const myToken = process.env.MYTOKEN;   // Verification token for webhook
 // const phoneNumberId = process.env.PHONE_NUMBER_ID; // WhatsApp phone number ID
-const token = 'EAAUXn7ZAmXu0BO3qOGyWLQ5UX8rILmJXYS5mzqHWFuRaqXBJDZB4yZBmJtER6KdBtf0hOdkOYNZBqHhPz4xnWNXcXAEotd42OviHokeUIiEaJG9cUIdh8oqiilwfkoIs3zHnPk2CUqnjdD9tR9ceLntF1nQ4vVrIsJmOmcyITGPU9sepAv63PlI00Bz8ZC5xiX8ZCMTrL04o3ziOpGgZCrZBn0HA9FXVmPgZC8Rn0';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO2zEAiRScvh6AyxNb3Pk1lFPL2iYnHZArXmTR33uwSMYPkeNFugGc9UnXVXP2HJLxfaT9Vk1M3KyJHl2Uo6kZBZBVcFma9mRewfYMIagM7uDuRt3ESS4ZCQ1J4BMTZCShKZB2yqrLPbtYk0wLOHLYF6mYq7KWW2LNi1Cvq8vW7PCgcZBl6fp7aVV9olSeSDVyunLYFvRF38iCahIZBpML1XYnJcZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402'; // WhatsApp phone number ID
 
@@ -21,13 +21,12 @@ app.get("/webhook", (req, res) => {
   if (mode && verifyToken) {
     if (mode === "subscribe" && verifyToken === myToken) {
       console.log("Webhook verified");
-      return res.status(200).send(challenge); // Ensure return to stop further execution
+      return res.status(200).send(challenge); // Return to prevent further code execution
     } else {
-      return res.status(403).send("Forbidden"); // Ensure return to stop further execution
+      return res.status(403).send("Forbidden"); // Return to prevent further code execution
     }
   }
-
-  return res.sendStatus(404); // If none of the conditions matched
+  res.sendStatus(400); // Bad request if required parameters are missing
 });
 
 // Receiving messages from the webhook
@@ -49,9 +48,9 @@ app.post("/webhook", (req, res) => {
       }
     });
 
-    return res.status(200).send("EVENT_RECEIVED"); // Ensure return to stop further execution
+    return res.status(200).send("EVENT_RECEIVED"); // Return to prevent further code execution
   } else {
-    return res.sendStatus(404); // If the body does not contain the expected object
+    return res.sendStatus(404); // Return 404 if no matching object found
   }
 });
 
