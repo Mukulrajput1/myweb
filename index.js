@@ -210,39 +210,9 @@ app.post("/webhook", (req, res) => {
 });
 
 // Function to send a WhatsApp message
-// function sendMessage(to, messageText) {
-
-//   console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
-//   axios({
-//     method: "POST",
-//     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
-//     headers: {
-//       "Authorization": `Bearer ${token}`,
-//       "Content-Type": "application/json"
-//     },
-//     data: {
-//       messaging_product: "whatsapp",
-//       to: to,
-//       type: "template",
-//       template: {
-//         name: messageText,
-//         language: {
-//           code: "en_US"
-//         }
-//       }
-//     }
-//   })
-//   .then(response => {
-//     console.log("Message sent:", response.data);
-//   })
-//   .catch(error => {
-//     console.error("Error sending message:", error.response ? error.response.data : error.message);
-//   });
-// }
-
 function sendMessage(to, messageText) {
-  console.log("To:", to, "Message:", messageText);
 
+  console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
   axios({
     method: "POST",
     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
@@ -253,9 +223,12 @@ function sendMessage(to, messageText) {
     data: {
       messaging_product: "whatsapp",
       to: to,
-      type: "text",
-      text: {
-        body: messageText
+      type: "template",
+      template: {
+        name: messageText,
+        language: {
+          code: "en_US"
+        }
       }
     }
   })
@@ -266,6 +239,33 @@ function sendMessage(to, messageText) {
     console.error("Error sending message:", error.response ? error.response.data : error.message);
   });
 }
+
+// function sendMessage(to, messageText) {
+//   console.log("To:", to, "Message:", messageText);
+
+//   axios({
+//     method: "POST",
+//     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+//     headers: {
+//       "Authorization": `Bearer ${token}`,
+//       "Content-Type": "application/json"
+//     },
+//     data: {
+//       messaging_product: "whatsapp",
+//       to: to,
+//       type: "text",
+//       text: {
+//         body: messageText
+//       }
+//     }
+//   })
+//   .then(response => {
+//     console.log("Message sent:", response.data);
+//   })
+//   .catch(error => {
+//     console.error("Error sending message:", error.response ? error.response.data : error.message);
+//   });
+// }
 
 
 app.listen(8000, () => {
