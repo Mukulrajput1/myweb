@@ -230,6 +230,6 @@ function sendMessage(to, messageText) {
 }
 
 app.listen(8000, () => {
-  console.log("server started successfull");
+  console.log("server started successfully for webhook");
 });
  
