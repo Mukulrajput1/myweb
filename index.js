@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 const mainConnect = require('./mongoConn')
+const bodyParser = require("body-parser");
+const axios = require("axios");
 const subscriberModel = require('./subscribers')
 const clientModel = require('./client')
 const blogsModel = require('./blogs')
@@ -16,6 +19,7 @@ const profileModel= require("./profileSchema")
 var cors = require("cors");
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, "frontend", "build")));
 mainConnect()
@@ -151,6 +155,68 @@ app.post("/blogpost", async (req,res)=>{
   const a = blogsModel.insertMany(req.body)
   res.send("ok")
 })
+
+app.get("/webhook", (req, res) => {
+  const mode = req.query["hub.mode"];
+  const challenge = req.query["hub.challenge"];
+  const verifyToken = req.query["hub.verify_token"];
+
+  if (mode && verifyToken) {
+    if (mode === "subscribe" && verifyToken === myToken) {
+      console.log("Webhook verified");
+      res.status(200).send(challenge);
+    } else {
+      res.status(403).send("Forbidden");
+    }
+  }
+  res.status(500).send('');
+});
+
+// Receiving messages from the webhook
+app.post("/webhook", (req, res) => {
+  const body = req.body;
+
+  if (body.object) {
+    body.entry.forEach((entry) => {
+      const changes = entry.changes[0];
+      if (changes.value && changes.value.messages) {
+        const message = changes.value.messages[0];
+        const from = message.from; // User phone number who sent the message
+        const msgBody = message.text ? message.text.body : "No text";
+
+        console.log(`Received message: '${msgBody}' from ${from}`);
+
+        // Automatically respond to the incoming message
+        sendMessage(from, "Hello! This is an automated response from our WhatsApp bot.");
+      }
+    });
+
+    res.status(200).send("EVENT_RECEIVED");
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+// Function to send a WhatsApp message
+function sendMessage(to, messageText) {
+  axios({
+    method: "POST",
+    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    data: {
+      messaging_product: "whatsapp",
+      to: to,
+      text: { body: messageText }
+    }
+  }).then(response => {
+    console.log("Message sent:", response.data);
+  }).catch(error => {
+    console.error("Error sending message:", error.response ? error.response.data : error.message);
+  });
+}
 
 app.listen(8000, () => {
   console.log("server started successfull");
