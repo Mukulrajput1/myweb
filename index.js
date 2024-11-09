@@ -198,7 +198,7 @@ app.post("/webhook", (req, res) => {
         console.log(`Received message: '${msgBody}' from ${from}`);
 
         // Automatically respond to the incoming message
-        sendMessage(from, "Hello! This is an automated response from our WhatsApp bot.");
+        sendMessage(from, "hello_world");
       }
     });
 
@@ -214,8 +214,9 @@ function sendMessage(to, messageText) {
   console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
   axios({
     method: "POST",
-    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages${token}`,
+    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
     headers: {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json"
     },
     data: {
