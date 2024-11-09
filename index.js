@@ -250,6 +250,7 @@ function sendMessage(to, messageText) {
       "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json"
     },
+    timeout: 1000000,
     data: {
       messaging_product: "whatsapp",
       to: to,
