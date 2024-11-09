@@ -224,7 +224,7 @@ function sendMessage(to, messageText) {
       to: to,
       type: "template",
       template: {
-        name: messageText,
+        name: "hello_world",
         language: {
           code: "en_US"
         }
