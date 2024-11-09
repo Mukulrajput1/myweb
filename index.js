@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOZCp9ZAHbaF213UZCcby2yT0ibNqGWcr3CEZCC3VfqxVIvA0Srn4qO6FZAEzFVWXkTuZCGVMMLEZAWzFQTovXZCAFe8TZAm3ZBr15SItxHBi2EWsFIHO3JX4AJm0hLB2haW2lCYYefWGsOm6saKzy0kAhVZCkReuILfdNRhE8hbflhzUkPSGJdoZB3snAskuHA1LZCiQ2xVtkzyPWt8NiMaq1kZAZBBSGJY';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO96BC499vKjOW5GEbGpm2RZBZBj4z0aZCN1yIq1PyCiRn4248ZB3gSHbm3EdqWs2GioU6PrLp5FALRkFWJZA4CXmYCsGrWQG1ZBFbgSxSYwL6h7pfAs8BmH9PFZBsnPXClWo3T6tVUVXN63Y40yWFV7ZADR2HzQUOiZCOKMzvvJx8pyWZCnZA1ZA2dIb0AJ7vUta4Ffm63dzBjL9ZBHlUNacBb0yKXn2N';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -199,7 +199,7 @@ app.post("/webhook", (req, res) => {
         console.log(`Received message: '${msgBody}' from ${from}`);
 
         // Automatically respond to the incoming message
-        sendMessage(from, "hello_world");
+        sendMessage(from, "Hello Rajneesh");
       }
     });
 
@@ -210,39 +210,9 @@ app.post("/webhook", (req, res) => {
 });
 
 // Function to send a WhatsApp message
-function sendMessage(to, messageText) {
-
-  console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
-  axios({
-    method: "POST",
-    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    data: {
-      messaging_product: "whatsapp",
-      to: to,
-      type: "template",
-      template: {
-        name: messageText,
-        language: {
-          code: "en_US"
-        }
-      }
-    }
-  })
-  .then(response => {
-    console.log("Message sent:", response.data);
-  })
-  .catch(error => {
-    console.error("Error sending message:", error.response ? error.response.data : error.message);
-  });
-}
-
 // function sendMessage(to, messageText) {
-//   console.log("To:", to, "Message:", messageText);
 
+//   console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
 //   axios({
 //     method: "POST",
 //     url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
@@ -253,9 +223,12 @@ function sendMessage(to, messageText) {
 //     data: {
 //       messaging_product: "whatsapp",
 //       to: to,
-//       type: "text",
-//       text: {
-//         body: messageText
+//       type: "template",
+//       template: {
+//         name: messageText,
+//         language: {
+//           code: "en_US"
+//         }
 //       }
 //     }
 //   })
@@ -266,6 +239,33 @@ function sendMessage(to, messageText) {
 //     console.error("Error sending message:", error.response ? error.response.data : error.message);
 //   });
 // }
+
+function sendMessage(to, messageText) {
+  console.log("To:", to, "Message:", messageText);
+
+  axios({
+    method: "POST",
+    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    data: {
+      messaging_product: "whatsapp",
+      to: to,
+      type: "text",
+      text: {
+        body: messageText
+      }
+    }
+  })
+  .then(response => {
+    console.log("Message sent:", response.data);
+  })
+  .catch(error => {
+    console.error("Error sending message:", error.response ? error.response.data : error.message);
+  });
+}
 
 
 app.listen(8000, () => {
