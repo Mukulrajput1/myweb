@@ -221,7 +221,7 @@ function sendMessage(to, messageText) {
     },
     data: {
       messaging_product: "whatsapp",
-      to: to,
+      to: "918445059322",
       type: "template",
       template: {
         name: "hello_world",
