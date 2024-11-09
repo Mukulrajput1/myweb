@@ -214,9 +214,8 @@ function sendMessage(to, messageText) {
   console.log(">>>>>>>>>>.to",to,">>>>>>>>>>>message",messageText)
   axios({
     method: "POST",
-    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages`,
+    url: `https://graph.facebook.com/v20.0/${phoneNumberId}/messages${token}`,
     headers: {
-      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json"
     },
     data: {
