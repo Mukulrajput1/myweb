@@ -208,7 +208,7 @@ app.post("/webhook", (req, res) => {
           sendMessage(from, "Great! To get started, could you please share your name?");
         }else if(msgBody){
           name = msgBody;
-          sendMessage(from, "Thank you, [Name]! 😊 Could you also provide your email address?");
+          sendMessage(from, `Thank you, ${name}! 😊 Could you also provide your email address?`);
         }else if(msgBody){
           email = msgBody;
           sendMessage(from, "Got it! And your phone number, please?");
