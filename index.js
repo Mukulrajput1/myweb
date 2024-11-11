@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BO8FyOE9VV2pXPnpk8co6j9DdEviLEPfOZCf9eEhfOL8DBkxL8cYu5pZAcfLzTKZCSgi9jsblDybwXJ8qrLw3nWHxEJ3e4EBm7uGul9IgHI2CpTdXPaDDfKISZBroE6RiLfiYyGZBd5si4GiFXixvrueWQgGGiZCebAe8fVMsS6dUZBWlptP7nDgSIpvFf9trrTZAr8fpILhUiZCZC7fYoCv0tikUwZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO9sfbpZAsgcWdjyf3xistIYXzXUnYRSYWKA2xWevn5UMOKlS8EqlDo44fYqBuWy8PqVkS1eLfo94vc9ZCFvIS6JExlhZBdUjjwTIVHjJDWtqhhoHzZAwPTvGxZA0L1kn3AXRmJDVNo0hQxrZBfpZBeoi8ZANkVd6v7B6ilJ1aRL6fDw4Rbmk0EnixdZBxb9ePx1oZBHrvTOn4P6lmN7VtHQDxSs8gZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -243,7 +243,7 @@ app.post("/webhook", (req, res) => {
         // }
         
         
-        sendMessage(from, getResponse(msgBody));
+        // sendMessage(from, getResponse(msgBody));
         
       }
     });
