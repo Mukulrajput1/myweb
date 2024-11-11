@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOwgUerEoi0ySSMyO6mNxHiofcaCknqnnrGZAi673RP7I9axItMb7CMYaoYzZBvx6ZB19KLm82aAzcHp86SgrAzgWjZA5EI2pTCRYt5xN88405a8N9QNqZBoi2huQmA2QoIqG09mbr91bYmmlEaaFIyXrOvFronU6WaZCBeAynqnxjl8jb7JOJFTjFOUk7PZA0XtN2iVX45ku0QyM1nMdYmWnSUZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO92JolOA94eic7hAvage79ZA85UaYxankZAs6NgsAfYSwZAYplEnr9RwgJgWdfMN8gnfl3n4ZC92x7JcGBo1ozgDYCZAVrXQEX8Jtuc1UzYo6ojnvjvRgzP0lnVLFDTWBZBvtAUXcjKgiW8L76xPZBMTyymnZAMlzSevezrPYzWfR1v2QojfvETIXDWfkotqfPJCKimpPx3WZAopUKH1j83bB7L8ZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
