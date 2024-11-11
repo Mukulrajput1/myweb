@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOzv9N8FANQK4MY76x7sL6FrKuUiiZBDDwwOrnm9ZC3o2IHKCtCnQhKTlxxWQAUJ09bdZCEF5Vr8bFZCRZASf1GL9M2EW0yhe8T3OUBqJLIDBbZANwCYiuzZB089ZCG27S5kePQxlPZAOS2mWIbbCOJ3875coonw3hBt6XTXocWPEZCDRehYybymecNDAWnDTzLMBZBCJI84UkhYV1gHY9QLNGkrNDcZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BOZCT5CgRjv8xoeVcGv6VmuYmReZCoZACKyJ1xj8aXgFHKtMxnG6Gweqn0knLd7QOFW0O6m8l22E2D2iRHZBJbbtq9ZApiqlhxatrRRndk8RqLOGOZAVoVZASk7sFD6dsVVZAJpExM9mAJE5d6Yi3QZBiJd28VptTjjK5QE7U61ci2IQQyvIXocOwbj75OEyJQYV4yXfQyEK0eu8lu0OzhX6CpuroZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -198,15 +198,39 @@ app.post("/webhook", (req, res) => {
 
         console.log(`Received message: '${msgBody}' from ${from}`);
 
-        if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
-          sendMessage(from, "Hello User, Type 1 or Type 2");
-        }else if(msgBody === "1"){
-          sendMessage(from, "Hello User, You type 1");
-        }else if(msgBody === "2"){
-          sendMessage(from, "Hello User, You type 2");
-        }else{
-          sendMessage(from, "Something went wrong");
+        // if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
+        //   sendMessage(from, "Hello User, Type 1 or Type 2");
+        // }else if(msgBody === "1"){
+        //   sendMessage(from, "Hello User, You type 1");
+        // }else if(msgBody === "2"){
+        //   sendMessage(from, "Hello User, You type 2");
+        // }else{
+        //   sendMessage(from, "Something went wrong");
+        // }
+
+        const responses = new Map([
+          // Greetings array
+          [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hello User, Type 1 or Type 2"],
+          ['1', "Hello User, You type 1"],
+          ['2', "Hello User, You type 2"]
+        ]);
+        
+        function getResponse(message) {
+          for (const [key, response] of responses.entries()) {
+            // Check if the message matches a key in the Map
+            if (Array.isArray(key) ? key.includes(message) : key === message) {
+              return response;
+            }
+          }
+          // Default message if no matches found
+          return "Something went wrong";
         }
+        
+        // Usage
+        // const msgBody = "hello"; // Or any input message
+        // const from = "user_number"; // Replace with actual sender's number
+        sendMessage(from, getResponse(msgBody));
+        
       }
     });
 
