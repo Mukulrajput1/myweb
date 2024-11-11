@@ -184,6 +184,10 @@ app.get("/webhook", (req, res) => {
   res.status(200).send(data);
 });
 
+let name;
+let email;
+let number;
+
 // Receiving messages from the webhook
 app.post("/webhook", (req, res) => {
   const body = req.body;
@@ -200,29 +204,19 @@ app.post("/webhook", (req, res) => {
 
         if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
           sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
-          if(msgBody === "1" || msgBody === "sales"){
-            sendMessage(from, "Great! To get started, could you please share your name?");
-            if(msgBody){
-              sendMessage(from, "Thank you, [Name]! 😊 Could you also provide your email address?");
-              if(msgBody){
-                sendMessage(from, "Got it! And your phone number, please?");
-                if(msgBody){
-                  sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
-                  if(msgBody){
-                    sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
-                  }
-                }else{
-                  sendMessage(from,  "Something went wrong");
-                }
-              }else{
-                sendMessage(from,  "Something went wrong");
-              }
-            }else{
-              sendMessage(from,  "Something went wrong");
-            }
-          }else{
-            sendMessage(from,  "Something went wrong");
-          }
+        }else if(msgBody === "1" || msgBody === "sales"){
+          sendMessage(from, "Great! To get started, could you please share your name?");
+        }else if(msgBody){
+          name = msgBody;
+          sendMessage(from, "Thank you, [Name]! 😊 Could you also provide your email address?");
+        }else if(msgBody){
+          email = msgBody;
+          sendMessage(from, "Got it! And your phone number, please?");
+        }else if(msgBody){
+          number = msgBody;
+          sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
+        }else if(msgBody){
+          sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
         }else{
           sendMessage(from,  "Something went wrong");
         }
