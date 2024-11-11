@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOy8YpZAB5GgU6fG8Q3BL2G6my2X313fZATZC27KuBkaAJRhhMmPU5ZCj9J2LTvDkbbDeAblZA4hZBFu2c3LyxMKZCZB4ODb85M43ZCOgOUYNeoNOgPNcLGs0gJduzfZCojBwMqt2ugi1mHlDWP6qZBGETz7BmfSEoZA25b1jgb0BnLy02OcpZB1YWhuN3ZA9tkNb3u2z157ie0Io67h4u3CYxYdfv14iwZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BO4WZCjwTipuamGhPiM5ltAGbKKXcBaCIsPU8qY1W07RgkZCXtf2BNSUOTb8jK80AQqzZBxRUTZAWLyZBdZABdhdKYWZAZBbnrL5ZBFX7LzrYlWxhLHR9QoELCPjm3ZBEX6cahkX95W5oiZCJrtXGgdtSmo4T4sbH1ihnydFZA7ONZC40XuLBXwChDDEXKQAvZCs8nzLPtwfnsNIZAknZCekbZBZBiNMjSdpY8ZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -164,7 +164,7 @@ const userStates = new Map(); // Track user conversation states and data
 const conversationFlows = {
   GREETING: {
     message: "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs",
-    next: (response) => response === "1" || response.toLowerCase() === "sales" ? 'SALES_NAME' : 'JOB_ROLE'
+    next: (response) => {(response === "1" || response.toLowerCase() === "sales" ? 'SALES_NAME' : 'DEFAULT') || (response === "2" || response.toLowerCase() === "jobs" ? 'JOB_ROLE' : 'DEFAULT')}
   },
   SALES_NAME: {
     message: "Great! To get started, could you please share your name?",
