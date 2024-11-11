@@ -215,6 +215,16 @@ app.post("/webhook", (req, res) => {
         }else if(msgBody){
           number = msgBody;
           sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
+        }else if(msgBody === "2" || msgBody === "jobs"){
+          sendMessage(from, "Great! Could you tell me which position you’d like to apply for?\n1. Frontend Developer\n2. Backend Developer\n3. Full Stack Developer\n4. Software Tester.");
+        }else if(msgBody){
+          sendMessage(from, "Fantastic! Could you share how many years of experience you have in this field?");
+        }else if(msgBody){
+          sendMessage(from, "Thank you! What is your current CTC?");
+        }else if(msgBody){
+          sendMessage(from,  "And your expected CTC?");
+        }else if(msgBody){
+          sendMessage(from,  "Please upload your resume here.");
         }else if(msgBody){
           sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
         }else{
