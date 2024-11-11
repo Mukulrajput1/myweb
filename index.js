@@ -202,35 +202,90 @@ app.post("/webhook", (req, res) => {
 
         console.log(`Received message: '${msgBody}' from ${from}`);
 
-        if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
-          sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
-        }else if(msgBody === "1" || msgBody === "sales"){
-          sendMessage(from, "Great! To get started, could you please share your name?");
-        }else if(msgBody){
-          name = msgBody;
-          sendMessage(from, `Thank you, ${name}! 😊 Could you also provide your email address?`);
-        }else if(msgBody){
-          email = msgBody;
-          sendMessage(from, "Got it! And your phone number, please?");
-        }else if(msgBody){
-          number = msgBody;
-          sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
-        }else if(msgBody === "2" || msgBody === "jobs"){
-          sendMessage(from, "Great! Could you tell me which position you’d like to apply for?\n1. Frontend Developer\n2. Backend Developer\n3. Full Stack Developer\n4. Software Tester.");
-        }else if(msgBody){
-          sendMessage(from, "Fantastic! Could you share how many years of experience you have in this field?");
-        }else if(msgBody){
-          sendMessage(from, "Thank you! What is your current CTC?");
-        }else if(msgBody){
-          sendMessage(from,  "And your expected CTC?");
-        }else if(msgBody){
-          sendMessage(from,  "Please upload your resume here.");
-        }else if(msgBody){
-          sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
-        }else{
-          sendMessage(from,  "Something went wrong");
+        // if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
+        //   sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
+        // }else if(msgBody === "1" || msgBody === "sales"){
+        //   sendMessage(from, "Great! To get started, could you please share your name?");
+        // }else if(msgBody){
+        //   name = msgBody;
+        //   sendMessage(from, `Thank you, ${name}! 😊 Could you also provide your email address?`);
+        // }else if(msgBody){
+        //   email = msgBody;
+        //   sendMessage(from, "Got it! And your phone number, please?");
+        // }else if(msgBody){
+        //   number = msgBody;
+        //   sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
+        // }else if(msgBody === "2" || msgBody === "jobs"){
+        //   sendMessage(from, "Great! Could you tell me which position you’d like to apply for?\n1. Frontend Developer\n2. Backend Developer\n3. Full Stack Developer\n4. Software Tester.");
+        // }else if(msgBody){
+        //   sendMessage(from, "Fantastic! Could you share how many years of experience you have in this field?");
+        // }else if(msgBody){
+        //   sendMessage(from, "Thank you! What is your current CTC?");
+        // }else if(msgBody){
+        //   sendMessage(from,  "And your expected CTC?");
+        // }else if(msgBody){
+        //   sendMessage(from,  "Please upload your resume here.");
+        // }else if(msgBody){
+        //   sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
+        // }else{
+        //   sendMessage(from,  "Something went wrong");
+        // }
+        switch (true) {
+          case (msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'):
+            sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
+            break;
+        
+          case (msgBody === "1" || msgBody.toLowerCase() === "sales"):
+            sendMessage(from, "Great! To get started, could you please share your name?");
+            break;
+        
+          case (msgBody === "2" || msgBody.toLowerCase() === "jobs"):
+            sendMessage(from, "Great! Could you tell me which position you’d like to apply for?\n1. Frontend Developer\n2. Backend Developer\n3. Full Stack Developer\n4. Software Tester.");
+            break;
+        
+          case !!name === false:  // assuming 'name' is undefined initially, check if it's empty
+            name = msgBody;
+            sendMessage(from, `Thank you, ${name}! 😊 Could you also provide your email address?`);
+            break;
+        
+          case !!email === false:  // assuming 'email' is undefined initially
+            email = msgBody;
+            sendMessage(from, "Got it! And your phone number, please?");
+            break;
+        
+          case !!number === false:  // assuming 'number' is undefined initially
+            number = msgBody;
+            sendMessage(from, "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
+            break;
+        
+          case !!experience === false:  // assuming 'experience' is undefined initially for job application
+            sendMessage(from, "Fantastic! Could you share how many years of experience you have in this field?");
+            experience = msgBody;
+            break;
+        
+          case !!ctc === false:  // assuming 'ctc' is undefined initially
+            sendMessage(from, "Thank you! What is your current CTC?");
+            ctc = msgBody;
+            break;
+        
+          case !!expectedCtc === false:  // assuming 'expectedCtc' is undefined initially
+            sendMessage(from, "And your expected CTC?");
+            expectedCtc = msgBody;
+            break;
+        
+          case !!resumeUploaded === false:  // assuming 'resumeUploaded' is undefined initially
+            sendMessage(from, "Please upload your resume here.");
+            resumeUploaded = true;
+            break;
+        
+          case resumeUploaded:
+            sendMessage(from, "Thanks for all the details! One of our team members will reach out shortly.");
+            break;
+        
+          default:
+            sendMessage(from, "Something went wrong");
         }
-
+        
         // const responses = new Map([
         //   [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hi there! How can I assist you today? 1. Sales2. Jobs"],
         //   ['1', "Hello User, You type 1"],
