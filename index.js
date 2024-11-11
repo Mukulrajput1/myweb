@@ -198,30 +198,49 @@ app.post("/webhook", (req, res) => {
 
         console.log(`Received message: '${msgBody}' from ${from}`);
 
-        // if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
-        //   sendMessage(from, "Hello User, Type 1 or Type 2");
-        // }else if(msgBody === "1"){
-        //   sendMessage(from, "Hello User, You type 1");
-        // }else if(msgBody === "2"){
-        //   sendMessage(from, "Hello User, You type 2");
-        // }else{
-        //   sendMessage(from, "Something went wrong");
-        // }
-
-        const responses = new Map([
-          [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hi there! How can I assist you today? 1. Sales2. Jobs"],
-          ['1', "Hello User, You type 1"],
-          ['2', "Hello User, You type 2"]
-        ]);
-        
-        function getResponse(message) {
-          for (const [key, response] of responses.entries()) {
-            if (Array.isArray(key) ? key.includes(message) : key === message) {
-              return response;
+        if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
+          sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
+          if(msgBody === "1" || msgBody === "sales"){
+            sendMessage(from, "Great! To get started, could you please share your name?");
+            if(msgBody){
+              sendMessage(from, "Thank you, [Name]! 😊 Could you also provide your email address?");
+              if(msgBody){
+                sendMessage(from, "Got it! And your phone number, please?");
+                if(msgBody){
+                  sendMessage(from,  "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
+                  if(msgBody){
+                    sendMessage(from,  "Thanks for all the details! One of our team members will reach out shortly.");
+                  }
+                }else{
+                  sendMessage(from,  "Something went wrong");
+                }
+              }else{
+                sendMessage(from,  "Something went wrong");
+              }
+            }else{
+              sendMessage(from,  "Something went wrong");
             }
+          }else{
+            sendMessage(from,  "Something went wrong");
           }
-          return "Something went wrong";
+        }else{
+          sendMessage(from,  "Something went wrong");
         }
+
+        // const responses = new Map([
+        //   [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hi there! How can I assist you today? 1. Sales2. Jobs"],
+        //   ['1', "Hello User, You type 1"],
+        //   ['2', "Hello User, You type 2"]
+        // ]);
+        
+        // function getResponse(message) {
+        //   for (const [key, response] of responses.entries()) {
+        //     if (Array.isArray(key) ? key.includes(message) : key === message) {
+        //       return response;
+        //     }
+        //   }
+        //   return "Something went wrong";
+        // }
         
         
         sendMessage(from, getResponse(msgBody));
