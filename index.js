@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BOZCT5CgRjv8xoeVcGv6VmuYmReZCoZACKyJ1xj8aXgFHKtMxnG6Gweqn0knLd7QOFW0O6m8l22E2D2iRHZBJbbtq9ZApiqlhxatrRRndk8RqLOGOZAVoVZASk7sFD6dsVVZAJpExM9mAJE5d6Yi3QZBiJd28VptTjjK5QE7U61ci2IQQyvIXocOwbj75OEyJQYV4yXfQyEK0eu8lu0OzhX6CpuroZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BOy8YpZAB5GgU6fG8Q3BL2G6my2X313fZATZC27KuBkaAJRhhMmPU5ZCj9J2LTvDkbbDeAblZA4hZBFu2c3LyxMKZCZB4ODb85M43ZCOgOUYNeoNOgPNcLGs0gJduzfZCojBwMqt2ugi1mHlDWP6qZBGETz7BmfSEoZA25b1jgb0BnLy02OcpZB1YWhuN3ZA9tkNb3u2z157ie0Io67h4u3CYxYdfv14iwZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -159,6 +159,43 @@ app.post("/blogpost", async (req,res)=>{
   res.send("ok")
 })
 
+const userStates = new Map(); // Track user conversation states and data
+
+const conversationFlows = {
+  GREETING: {
+    message: "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs",
+    next: (response) => response === "1" || response.toLowerCase() === "sales" ? 'SALES_NAME' : 'JOB_ROLE'
+  },
+  SALES_NAME: {
+    message: "Great! To get started, could you please share your name?",
+    next: () => 'SALES_EMAIL'
+  },
+  SALES_EMAIL: {
+    message: (data) => `Thank you, ${data.name}! 😊 Could you also provide your email address?`,
+    next: () => 'SALES_PHONE'
+  },
+  SALES_PHONE: {
+    message: "Got it! And your phone number, please?",
+    next: () => 'SALES_FINAL'
+  },
+  SALES_FINAL: {
+    message: "Thank you for sharing your details! Our team will reach out shortly.",
+    next: () => 'END'
+  },
+  JOB_ROLE: {
+    message: "Could you tell me which position you're interested in?\n1. Frontend Developer\n2. Backend Developer",
+    next: () => 'JOB_FINAL'
+  },
+  JOB_FINAL: {
+    message: "Thank you! Our HR team will review your interest and contact you soon.",
+    next: () => 'END'
+  },
+  DEFAULT: {
+    message: "I'm sorry, I didn't understand that. Could you try again?",
+    next: () => 'GREETING'
+  }
+};
+
 
 app.get("/webhook", (req, res) => {
   const mode = req.query["hub.mode"];
@@ -194,7 +231,9 @@ app.post("/webhook", (req, res) => {
       if (changes.value && changes.value.messages) {
         const message = changes.value.messages[0];
         const from = message.from; // User phone number who sent the message
-        const msgBody = message.text ? message.text.body : "No text";
+        // const msgBody = message.text ? message.text.body : "No text";
+        const msgBody = message.text ? message.text.body.toLowerCase().trim() : "No text";
+
 
         console.log(`Received message: '${msgBody}' from ${from}`);
 
@@ -208,28 +247,24 @@ app.post("/webhook", (req, res) => {
         //   sendMessage(from, "Something went wrong");
         // }
 
-        const responses = new Map([
-          // Greetings array
-          [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hello User, Type 1 or Type 2"],
-          ['1', "Hello User, You type 1"],
-          ['2', "Hello User, You type 2"]
-        ]);
+        // const responses = new Map([
+        //   [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hi there! How can I assist you today? 1. Sales2. Jobs"],
+        //   ['1', "Hello User, You type 1"],
+        //   ['2', "Hello User, You type 2"]
+        // ]);
         
-        function getResponse(message) {
-          for (const [key, response] of responses.entries()) {
-            // Check if the message matches a key in the Map
-            if (Array.isArray(key) ? key.includes(message) : key === message) {
-              return response;
-            }
-          }
-          // Default message if no matches found
-          return "Something went wrong";
-        }
+        // function getResponse(message) {
+        //   for (const [key, response] of responses.entries()) {
+        //     if (Array.isArray(key) ? key.includes(message) : key === message) {
+        //       return response;
+        //     }
+        //   }
+        //   return "Something went wrong";
+        // }
         
-        // Usage
-        // const msgBody = "hello"; // Or any input message
-        // const from = "user_number"; // Replace with actual sender's number
-        sendMessage(from, getResponse(msgBody));
+        
+        // sendMessage(from, getResponse(msgBody));
+        handleMessage(from, msgBody);
         
       }
     });
@@ -239,6 +274,33 @@ app.post("/webhook", (req, res) => {
     res.sendStatus(404);
   }
 });
+
+
+// Function to manage conversation flow
+function handleMessage(from, msgBody) {
+  const userState = userStates.get(from) || { state: 'GREETING', data: {} };
+  const flow = conversationFlows[userState.state];
+
+  // Determine next state and personalize message
+  const nextState = flow.next(msgBody);
+  const message = typeof flow.message === 'function' ? flow.message(userState.data) : flow.message;
+
+  // Update user data if required
+  if (userState.state === 'SALES_NAME') userState.data.name = msgBody;
+  if (userState.state === 'SALES_EMAIL') userState.data.email = msgBody;
+  if (userState.state === 'SALES_PHONE') userState.data.phone = msgBody;
+
+  // Send response message
+  sendMessage(from, message);
+
+  // Move to the next state or end the conversation
+  if (nextState === 'END') {
+    userStates.delete(from);
+  } else {
+    userState.state = nextState;
+    userStates.set(from, userState);
+  }
+}
 
 // Function to send a WhatsApp message
 // function sendMessage(to, messageText) {
