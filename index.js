@@ -15,7 +15,7 @@ const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
 const projectModel= require("./projectSchema")
 const profileModel= require("./profileSchema")
-const token = 'EAAUXn7ZAmXu0BO92JolOA94eic7hAvage79ZA85UaYxankZAs6NgsAfYSwZAYplEnr9RwgJgWdfMN8gnfl3n4ZC92x7JcGBo1ozgDYCZAVrXQEX8Jtuc1UzYo6ojnvjvRgzP0lnVLFDTWBZBvtAUXcjKgiW8L76xPZBMTyymnZAMlzSevezrPYzWfR1v2QojfvETIXDWfkotqfPJCKimpPx3WZAopUKH1j83bB7L8ZD';       // Access token for WhatsApp API
+const token = 'EAAUXn7ZAmXu0BOzv9N8FANQK4MY76x7sL6FrKuUiiZBDDwwOrnm9ZC3o2IHKCtCnQhKTlxxWQAUJ09bdZCEF5Vr8bFZCRZASf1GL9M2EW0yhe8T3OUBqJLIDBbZANwCYiuzZB089ZCG27S5kePQxlPZAOS2mWIbbCOJ3875coonw3hBt6XTXocWPEZCDRehYybymecNDAWnDTzLMBZBCJI84UkhYV1gHY9QLNGkrNDcZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
 
@@ -198,8 +198,15 @@ app.post("/webhook", (req, res) => {
 
         console.log(`Received message: '${msgBody}' from ${from}`);
 
-        // Automatically respond to the incoming message
-        sendMessage(from, "Hello Rajneesh");
+        if(msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'){
+          sendMessage(from, "Hello User, Type 1 or Type 2");
+        }else if(msgBody === "1"){
+          sendMessage(from, "Hello User, You type 1");
+        }else if(msgBody === "2"){
+          sendMessage(from, "Hello User, You type 2");
+        }else{
+          sendMessage(from, "Something went wrong");
+        }
       }
     });
 
