@@ -17,6 +17,9 @@ const blogs = require('./routes/blogs')
 const searchComment = require('./routes/searchComment')
 const project = require('./routes/project')
 const comments = require('./routes/comments')
+const authRoutes = require('./routes/auth')
+const profile = require('./routes/profile')
+
 var cors = require("cors");
 mainConnect()
 
@@ -44,6 +47,8 @@ app.get("/blog/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
 
+
+app.use("/api/auth", authRoutes);
 app.use('/resume', resume)
 app.use("/technicalskill", technicalSkill)
 app.use("/blogs",blogs );
@@ -59,12 +64,7 @@ app.use("/project",project );
 // });
 
 
-app.get("/profile", async function (req, res) {
-  const a = await profileModel.findOne()
-  res.send(a)
-  console.log(a)
-
-});
+app.use("/profile", profile);
 
 app.get("/certificates", async (req, res) => {
   let a = await certificateModel.find()
