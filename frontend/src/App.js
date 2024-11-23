@@ -12,7 +12,6 @@ import Blog from './component/Blog';
 import Moreblog from './component/Moreblog';
 import Blogentry from './component/Blogentry';
 import Warn from './component/Warn';
-import EventPage from './component/EventPage';
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
         <Route exact path='/hire' element={<Hire/>} ></Route>
         <Route exact path='/blog' element={<Blog/>} ></Route>
         <Route exact path='/blogentry' element={<Blogentry/>} ></Route>
-        <Route exact path='/event' element={<EventPage/>} ></Route>
         <Route exact path='/blog/:id' element={<Moreblog/>} ></Route>
       </Routes>
       <Footer></Footer>
