@@ -13,8 +13,8 @@ const path = require("path")
 const techSkillModel = require("./techSkillSchema")
 const ratingModel = require("./ratingSchema")
 const certificateModel = require("./certificateSchema")
-const projectModel= require("./projectSchema")
-const profileModel= require("./profileSchema")
+const projectModel = require("./projectSchema")
+const profileModel = require("./profileSchema")
 const token = 'EAAUXn7ZAmXu0BO9sfbpZAsgcWdjyf3xistIYXzXUnYRSYWKA2xWevn5UMOKlS8EqlDo44fYqBuWy8PqVkS1eLfo94vc9ZCFvIS6JExlhZBdUjjwTIVHjJDWtqhhoHzZAwPTvGxZA0L1kn3AXRmJDVNo0hQxrZBfpZBeoi8ZANkVd6v7B6ilJ1aRL6fDw4Rbmk0EnixdZBxb9ePx1oZBHrvTOn4P6lmN7VtHQDxSs8gZD';       // Access token for WhatsApp API
 const myToken = 'my_custom_token';   // Verification token for webhook
 const phoneNumberId = '460908993776402';
@@ -33,127 +33,130 @@ app.get("/resume", async function (req, res) {
   res.setHeader(
     "Content-Disposition",
     'attachment; filename="resume.pdf"'
-    );
-    res.setHeader("Content-Type", "application/pdf");
-    res.send(pdfBuffer);
-  });
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.send(pdfBuffer);
 });
-  app.get("/contact", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
-  app.get("/about", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/contact", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
-  app.get("/hire", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/about", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
-  app.get("/blog", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/event", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
-  app.get("/blog/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/hire", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+app.get("/blog", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+app.get("/blog/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
 
-app.get("/technicalskill",async function(req,res){
+app.get("/technicalskill", async function (req, res) {
   const d = await techSkillModel.find()
   res.send(d)
   console.log(d)
 })
 
-app.get("/showtab",async function(req,res){
+app.get("/showtab", async function (req, res) {
   const a = await ratingModel.find()
   res.send(a)
   console.log(a)
 });
-app.get("/blogs",async function(req,res){
+app.get("/blogs", async function (req, res) {
   const a = await blogsModel.find()
-  
+
   res.send(a)
   // console.log(a)
 });
-app.post("/blogs",async function(req,res){
+app.post("/blogs", async function (req, res) {
   const id = req.body.id
-  const a = await blogsModel.find({_id:id})
-  const b =  await commentsModel.count({blogId:id})
+  const a = await blogsModel.find({ _id: id })
+  const b = await commentsModel.count({ blogId: id })
   const c = {
-    blog:a,
-    comment:b
+    blog: a,
+    comment: b
   }
   res.send(c)
   console.log(a)
 });
-app.post("/comments",async function(req,res){
+app.post("/comments", async function (req, res) {
   const a = await commentsModel.insertMany(req.body)
   res.send("ok")
   console.log(req.body)
 
 });
-app.post("/searchComment",async function(req,res){
+app.post("/searchComment", async function (req, res) {
   console.log(req.body.id)
-  const a = await commentsModel.find({blogId:req.body.id})
+  const a = await commentsModel.find({ blogId: req.body.id })
   res.send(a)
   console.log(req.body)
 
 });
 
-app.get("/project",async function(req,res){
+app.get("/project", async function (req, res) {
   let a = await projectModel.find()
   res.send(a)
   console.log(a)
 });
 
-app.get("/profile",async function(req,res){
+app.get("/profile", async function (req, res) {
   const a = await profileModel.findOne()
   res.send(a)
   console.log(a)
 
 });
 
-app.get("/certificates",async(req,res)=>{
+app.get("/certificates", async (req, res) => {
   let a = await certificateModel.find()
   res.send(a)
 })
 
-app.post("/subscribe",async (req,res)=>{
-  const data = {"email":req.body.email}
-  
-  const b = await subscriberModel.count({email:data.email})
-  
+app.post("/subscribe", async (req, res) => {
+  const data = { "email": req.body.email }
+
+  const b = await subscriberModel.count({ email: data.email })
+
   console.log(b)
   // console.log(req.body)
-  if(b){
+  if (b) {
     res.status(400).send("Already subscribe")
-  }else{
-  const a = await subscriberModel.insertMany({email:data.email})
-  res.status(200).send("successfully subscribed")
+  } else {
+    const a = await subscriberModel.insertMany({ email: data.email })
+    res.status(200).send("successfully subscribed")
   }
 })
 
-app.post("/datasend",async (req,res)=> {
+app.post("/datasend", async (req, res) => {
   const leadData = {
     Last_Name: req.body.first_name,
     First_Name: req.body.last_name,
     Email: req.body.email,
     Phone: req.body.phone
   };
-  
+
   insertData(leadData);
   console.log(req.body)
 
   err = {
-    data:200
+    data: 200
   }
   res.send(err)
 })
 
-app.post("/hire", async (req,res)=>{
+app.post("/hire", async (req, res) => {
   console.log(req.body)
   const a = clientModel.insertMany(req.body)
   res.send("Thank You! We will contact You shortly")
 })
-app.post("/blogpost", async (req,res)=>{
+app.post("/blogpost", async (req, res) => {
   console.log(req.body)
   const a = blogsModel.insertMany(req.body)
   res.send("ok")
@@ -177,7 +180,7 @@ app.get("/webhook", (req, res) => {
     mode: mode,
     challenge: challenge,
     verifyToken: verifyToken,
-    token : token,
+    token: token,
     phoneNumberId: phoneNumberId,
     myToken: myToken
   }
@@ -234,64 +237,64 @@ app.post("/webhook", (req, res) => {
           case (msgBody === 'hi' || msgBody === 'hii' || msgBody === 'hey' || msgBody === 'helo' || msgBody === 'hello' || msgBody === 'hlo'):
             sendMessage(from, "Hi there! 👋 How can I assist you today?\n1. Sales\n2. Jobs");
             break;
-        
+
           case (msgBody === "1" || msgBody.toLowerCase() === "sales"):
             sendMessage(from, "Great! To get started, could you please share your name?");
             break;
-        
+
           case (msgBody === "2" || msgBody.toLowerCase() === "jobs"):
             sendMessage(from, "Great! Could you tell me which position you’d like to apply for?\n1. Frontend Developer\n2. Backend Developer\n3. Full Stack Developer\n4. Software Tester.");
             break;
-        
+
           case !!name === false:  // assuming 'name' is undefined initially, check if it's empty
             name = msgBody;
             sendMessage(from, `Thank you, ${name}! 😊 Could you also provide your email address?`);
             break;
-        
+
           case !!email === false:  // assuming 'email' is undefined initially
             email = msgBody;
             sendMessage(from, "Got it! And your phone number, please?");
             break;
-        
+
           case !!number === false:  // assuming 'number' is undefined initially
             number = msgBody;
             sendMessage(from, "Lastly, could you briefly describe the job requirements or details you’re looking to discuss?");
             break;
-        
+
           case !!experience === false:  // assuming 'experience' is undefined initially for job application
             sendMessage(from, "Fantastic! Could you share how many years of experience you have in this field?");
             experience = msgBody;
             break;
-        
+
           case !!ctc === false:  // assuming 'ctc' is undefined initially
             sendMessage(from, "Thank you! What is your current CTC?");
             ctc = msgBody;
             break;
-        
+
           case !!expectedCtc === false:  // assuming 'expectedCtc' is undefined initially
             sendMessage(from, "And your expected CTC?");
             expectedCtc = msgBody;
             break;
-        
+
           case !!resumeUploaded === false:  // assuming 'resumeUploaded' is undefined initially
             sendMessage(from, "Please upload your resume here.");
             resumeUploaded = true;
             break;
-        
+
           case resumeUploaded:
             sendMessage(from, "Thanks for all the details! One of our team members will reach out shortly.");
             break;
-        
+
           default:
             sendMessage(from, "Something went wrong");
         }
-        
+
         // const responses = new Map([
         //   [['hi', 'hii', 'hey', 'helo', 'hello', 'hlo','Hi', 'Hii', 'Hey', 'Helo', 'Hello', 'Hlo'], "Hi there! How can I assist you today? 1. Sales2. Jobs"],
         //   ['1', "Hello User, You type 1"],
         //   ['2', "Hello User, You type 2"]
         // ]);
-        
+
         // function getResponse(message) {
         //   for (const [key, response] of responses.entries()) {
         //     if (Array.isArray(key) ? key.includes(message) : key === message) {
@@ -300,10 +303,10 @@ app.post("/webhook", (req, res) => {
         //   }
         //   return "Something went wrong";
         // }
-        
-        
+
+
         // sendMessage(from, getResponse(msgBody));
-        
+
       }
     });
 
@@ -373,7 +376,7 @@ app.post("/webhook", (req, res) => {
 // }
 async function sendMessage(to, messageText) {
   console.log("Sending message to:", to, "with template:", messageText);
-  
+
   const maxRetries = 3;
   let attempt = 0;
 
@@ -391,14 +394,14 @@ async function sendMessage(to, messageText) {
           messaging_product: "whatsapp",
           to: to,
           type: "text",
-                text: {
-                  body: messageText
-                }
+          text: {
+            body: messageText
+          }
         }
       });
       console.log("Message sent successfully:", response.data);
       return response.data;
-      
+
     } catch (error) {
       attempt++;
       if (attempt >= maxRetries) {
@@ -416,4 +419,3 @@ async function sendMessage(to, messageText) {
 app.listen(8000, () => {
   console.log("server started successfully for webhook");
 });
- 
