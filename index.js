@@ -115,29 +115,6 @@ app.post("/blogpost", async (req, res) => {
 })
 
 
-app.get("/webhook", (req, res) => {
-  const mode = req.query["hub.mode"];
-  const challenge = req.query["hub.challenge"];
-  const verifyToken = req.query["hub.verify_token"];
-
-  if (mode && verifyToken) {
-    if (mode === "subscribe" && verifyToken === myToken) {
-      console.log("Webhook verified");
-      res.status(200).send(challenge);
-    } else {
-      res.status(403).send("Forbidden");
-    }
-  }
-  const data = {
-    mode: mode,
-    challenge: challenge,
-    verifyToken: verifyToken,
-    token : token,
-    phoneNumberId: phoneNumberId,
-    myToken: myToken
-  }
-  res.status(200).send(data);
-});
 
 app.listen(8000, () => {
   console.log("server started successfully for webhook");
