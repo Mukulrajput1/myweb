@@ -47,6 +47,25 @@ app.get("/blog/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
 
+const events = [
+  {
+    slug: "baby-show-jul-29-2024",
+    title: "The Baby Show Jul 29 2024",
+    description: "An exciting baby show with lots of activities and events.",
+    imageUrl: "https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg",
+    date: "2024-07-29",
+    location: "New York, NY",
+  },
+  {
+    slug: "tech-conference-aug-10-2024",
+    title: "Tech Conference Aug 10 2024",
+    description: "A conference showcasing the latest in tech and innovation.",
+    imageUrl: "https://example.com/tech-conference.jpg",
+    date: "2024-08-10",
+    location: "San Francisco, CA",
+  },
+];
+
 
 app.use("/api/auth", authRoutes);
 app.use('/resume', resume)
@@ -85,6 +104,14 @@ app.post("/subscribe", async (req, res) => {
     res.status(200).send("successfully subscribed")
   }
 })
+
+app.get("/api/events", (req, res) => {
+  try {  
+    res.json(events);
+  } catch (error) {
+    return res.status(500).json({ error: error.toString() });
+  }
+});
 
 app.post("/datasend", async (req, res) => {
   const leadData = {
