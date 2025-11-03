@@ -18,4 +18,3 @@ Thumbs.db  # Windows
 
 # Build and dependency directories
 dist/
-build/
