@@ -7,6 +7,9 @@ import { useContexter } from "../Contexter";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from 'react-hot-toast'
+import QrCode from 'qrcode-reader';
+import { Jimp } from 'jimp';
+import { QRCodeCanvas } from 'qrcode.react';
 
 
 function Footer() {
@@ -15,6 +18,79 @@ function Footer() {
   const {setMailMsg} = useContexter()
   const { profile } = useContexter();
   const {setMsg} = useContexter()
+
+  // State for QR decode and UPI manipulation
+  const [upiUri, setUpiUri] = useState('');
+  const [decoded, setDecoded] = useState(false);
+  const [decodeError, setDecodeError] = useState('');
+  const [amount, setAmount] = useState('');
+  const [upiWithAmount, setUpiWithAmount] = useState('');
+  const [debouncedAmount, setDebouncedAmount] = useState('');
+
+  // The base UPI string to match and extend
+  const baseUpi =
+    'upi://pay?pa=mukulrajputs@ybl&pn=Mukul%20rajput&mc=0000&mode=02&purpose=00';
+
+  // Handler for image decode when QR loads
+  async function handleImgLoad(e) {
+    setDecoded(false);
+    setDecodeError('');
+    setUpiUri('');
+    setUpiWithAmount('');
+    try {
+      // Load image data
+      const imgSrc = e.target.src;
+      const image = await Jimp.read(imgSrc);
+      const qr = new QrCode();
+      qr.callback = (err, value) => {
+        if (err || !value) {
+          setDecodeError('Failed to decode QR: ' + (err?.message || err));
+          return;
+        }
+        setUpiUri(value.result);
+        if (value.result === baseUpi) {
+          setDecoded(true);
+        } else {
+          setDecodeError('Decoded QR does not match expected UPI format.');
+        }
+      };
+      qr.decode(image.bitmap);
+    } catch (err) {
+      setDecodeError('Jimp error: ' + (err?.message || err));
+    }
+  }
+
+  // Update upiWithAmount whenever amount or base is available
+  React.useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedAmount(amount);
+    }, 400);
+    return () => clearTimeout(handler);
+  }, [amount]);
+
+  // Update upiWithAmount with debounce
+  React.useEffect(() => {
+    if (decoded && upiUri) {
+      if (debouncedAmount) {
+        // Insert &am=amount before &mode
+        const insertIdx = upiUri.indexOf('&mode=');
+        if (insertIdx !== -1) {
+          const newUpi =
+            upiUri.slice(0, insertIdx) +
+            `&am=${encodeURIComponent(debouncedAmount)}` +
+            upiUri.slice(insertIdx);
+          setUpiWithAmount(newUpi);
+        } else {
+          setUpiWithAmount(upiUri + `&am=${encodeURIComponent(debouncedAmount)}`);
+        }
+      } else {
+        setUpiWithAmount(upiUri);
+      }
+    } else {
+      setUpiWithAmount('');
+    }
+  }, [debouncedAmount, decoded, upiUri]);
+
   const subscribe = (event) => {
     event.preventDefault()
     const data = {email:email}
@@ -94,10 +170,36 @@ function Footer() {
             </form>
           </div>
           <div className="flex flex-col justify-center items-center sm:w-2/5 md:w-auto xl:w-1/2">
-            <div className={`${click?"text-gray-300":"text-gray-800"} uppercase text-md font-bold my-5`}><span>Payment</span></div>
-            <div>
-              <img src={profile.qr} alt="not found" height={120} width={120} className="rounded-lg"></img>
-            </div>
+            <div className={`${click?"text-gray-300":"text-gray-800"} uppercase text-md font-bold my-2`}><span>Payment</span></div>
+              {decoded && (
+                <div className="mt-3 w-full flex flex-col items-center">
+                  {upiWithAmount && (
+                    <div className=" break-all text-xs text-green-700 flex flex-col items-center">
+                      <div className="bg-white p-2 rounded-lg">
+                        <QRCodeCanvas 
+                          value={upiWithAmount} 
+                          size={120} 
+                          // imageSettings={{
+                          //   src: require('../asset/phonepe.png'),
+                          //   height: 32,
+                          //   width: 32,
+                          //   excavate: true
+                          // }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="Enter amount"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    className="w-32 px-2 mt-2 py-1 border rounded-xl border-gray-400 text-sm focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              )}
+         <img hidden src={profile.qr} alt="not found" height={120} width={120} className="rounded-lg" onLoad={(e) => {handleImgLoad(e)}}></img>
           </div>
         </div>
       </div>
